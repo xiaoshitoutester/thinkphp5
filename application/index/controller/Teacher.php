@@ -17,14 +17,26 @@ class Teacher extends Controller
     // 显示teacher表中的所有数据
     public function index(){
         try{
+            // 接收name
+            $name = Request::instance()->param('name');
+
             // 每页显示的数据
-            $pageSize = 10;
+            $pageSize = 8;
             // 实例化teacher
             $teacher = new TeacherModel();
             // 获取所有的记录数
             $countNums = $teacher->count();
+
+            // 定制查询条件
+            if (!empty($name)){
+                $teacher->where('name','like','%'.$name.'%');
+            }
             // 调用分页
-            $teachers = $teacher->paginate($pageSize);
+            $teachers = $teacher->paginate($pageSize, false, [
+                'query'=>[
+                    'name' => $name,
+                ],
+            ]);
             // 向View传输数据
             $this->assign('nums',$countNums);
             $this->assign('teachers',$teachers);

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:87:"E:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\teacher\index.html";i:1482580084;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:87:"E:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\teacher\index.html";i:1482586102;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +9,14 @@
 <body class="container">
     <div class="row">
         <div class="col-md-12">
+            <hr >
+            <form class="form-inline" action="<?php echo url(); ?>" method="get">
+                <div class="form-group">
+                    <label for="name" class="control-label">姓名</label>
+                    <input name="name" type="text" id="name" placeholder="姓名" class="form-control" value="<?php echo input('get.name'); ?>">
+                </div>
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search">查询</i></button>
+            </form>
             <hr>
                 <a href="<?php echo url('add'); ?>" class="btn btn-primary"><i class="glyphicon glyphicon-plus">增加教师</i></a>
             <hr>
@@ -36,8 +44,8 @@
                     <td><?php echo $teacher['create_time']; ?></td>
                     <td><?php echo $teacher['update_time']; ?></td>
                     <td>
-                        <a href="<?php echo url('edit?id='.$teacher->getData('id')); ?>">修改</a>
-                        <a href="<?php echo url('delete?id='.$teacher->getData('id')); ?>">删除</a>
+                        <a href="<?php echo url('edit?id='.$teacher->getData('id')); ?>" class="btn btn-primary">修改</a>
+                        <a href="<?php echo url('delete?id='.$teacher->getData('id')); ?>" class="btn btn-danger">删除</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
