@@ -17,9 +17,16 @@ class Teacher extends Controller
     // 显示teacher表中的所有数据
     public function index(){
         try{
+            // 每页显示的数据
+            $pageSize = 10;
+            // 实例化teacher
             $teacher = new TeacherModel();
-            // teacher 表中所有的数据
-            $teachers = $teacher->select();
+            // 获取所有的记录数
+            $countNums = $teacher->count();
+            // 调用分页
+            $teachers = $teacher->paginate($pageSize);
+            // 向View传输数据
+            $this->assign('nums',$countNums);
             $this->assign('teachers',$teachers);
 
             return $this->fetch();

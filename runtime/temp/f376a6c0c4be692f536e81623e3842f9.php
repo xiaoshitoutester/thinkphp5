@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:87:"E:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\teacher\index.html";i:1482557913;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:87:"E:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\teacher\index.html";i:1482580084;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +10,11 @@
     <div class="row">
         <div class="col-md-12">
             <hr>
-            <a href="<?php echo url('add'); ?>" class="btn btn-primary"><i class="glyphicon glyphicon-plus">增加教师</i></a>
+                <a href="<?php echo url('add'); ?>" class="btn btn-primary"><i class="glyphicon glyphicon-plus">增加教师</i></a>
             <hr>
+            <div>
+                <label >记录数：<?php echo $nums; ?></label>
+            </div>
             <table class="table table-hover table-bordered">
                 <tr class="info">
                     <th>序号</th>
@@ -39,6 +42,7 @@
                 </tr>
                 <?php endforeach; ?>
             </table>
+            <?php echo $teachers->render(); ?>
         </div>
     </div>
 </body>
