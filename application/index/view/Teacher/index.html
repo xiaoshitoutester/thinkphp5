@@ -8,6 +8,9 @@
 <body class="container">
     <div class="row">
         <div class="col-md-12">
+            <hr>
+            <a href="{:url('add')}" class="btn btn-primary"><i class="glyphicon glyphicon-plus">增加教师</i></a>
+            <hr>
             <table class="table table-hover table-bordered">
                 <tr class="info">
                     <th>序号</th>
@@ -28,7 +31,10 @@
                     <td>{$teacher.email}</td>
                     <td>{$teacher.create_time}</td>
                     <td>{$teacher.update_time}</td>
-                    <td><a href="{:url('delete?id='.$teacher->getData('id'))}">删除</a></td>
+                    <td>
+                        <a href="{:url('edit?id='.$teacher->getData('id'))}">修改</a>
+                        <a href="{:url('delete?id='.$teacher->getData('id'))}">删除</a>
+                    </td>
                 </tr>
                 {/foreach}
             </table>
