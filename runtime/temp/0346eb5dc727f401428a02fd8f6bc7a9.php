@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:85:"E:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\teacher\add.html";i:1482550666;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:85:"E:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\teacher\add.html";i:1482654839;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +20,12 @@
                     <label class="col-md-2 control-label">用户名：</label>
                     <div class="col-md-10">
                         <input type="text" name="username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">密码：</label>
+                    <div class="col-md-10">
+                        <input type="password" name="password">
                     </div>
                 </div>
                 <div class="form-group">

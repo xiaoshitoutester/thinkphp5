@@ -64,6 +64,7 @@ class Teacher extends Controller
             $Teacher->sex = $postData['sex'];
             $Teacher->username = $postData['username'];
             $Teacher->email = $postData['email'];
+            $Teacher->password = $Teacher::encryptPassword($postData['password']);
 
             // 新增数据到teacher表 增加自动验证
             $res = $Teacher->validate(true)->save($Teacher->getData());
@@ -94,16 +95,6 @@ class Teacher extends Controller
         }
     }
 
-    // 测试验证功能
-    public function test(){
-        $data = array();
-        $data['name'] = '123123';
-        $data['username'] = 'xiaoshitou1';
-        $data['sex'] = '0';
-        $data['email'] = 'xiaoshitou1@qq.com';
-
-        var_dump($this->validate($data,'Teacher'));
-    }
 
     // 删除数据
     public function delete(){
