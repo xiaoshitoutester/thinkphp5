@@ -36,4 +36,13 @@ class Login extends Controller
 
     }
 
+    // 注销功能
+    public function logout(){
+        if (TeacherModel::logout()){
+            return $this->success('注销成功',url('index'));
+        }else{
+            return $this->error('注销失败');
+        }
+    }
+
 }

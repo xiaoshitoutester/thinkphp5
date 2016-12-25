@@ -8,45 +8,39 @@
 
 namespace app\index\controller;
 use app\common\model\Teacher as TeacherModel;
-use think\Controller;
 use think\Request;
 
 
-class Teacher extends Controller
+class Teacher extends Index
 {
     // 显示teacher表中的所有数据
     public function index(){
-        try{
-            // 接收name
-            $name = Request::instance()->param('name');
 
-            // 每页显示的数据
-            $pageSize = 8;
-            // 实例化teacher
-            $teacher = new TeacherModel();
-            // 获取所有的记录数
-            $countNums = $teacher->count();
+        // 接收name
+        $name = Request::instance()->param('name');
 
-            // 定制查询条件
-            if (!empty($name)){
-                $teacher->where('name','like','%'.$name.'%');
-            }
-            // 调用分页
-            $teachers = $teacher->paginate($pageSize, false, [
-                'query'=>[
-                    'name' => $name,
-                ],
-            ]);
-            // 向View传输数据
-            $this->assign('nums',$countNums);
-            $this->assign('teachers',$teachers);
+        // 每页显示的数据
+        $pageSize = 8;
+        // 实例化teacher
+        $teacher = new TeacherModel();
+        // 获取所有的记录数
+        $countNums = $teacher->count();
 
-            return $this->fetch();
-        }catch (\Exception $e){
-            // 如果需要调试 异常就需要把下面的注释去掉
-            // throw $e;
-            return '系统错误'.$e->getMessage();
+        // 定制查询条件
+        if (!empty($name)){
+            $teacher->where('name','like','%'.$name.'%');
         }
+        // 调用分页
+        $teachers = $teacher->paginate($pageSize, false, [
+            'query'=>[
+                'name' => $name,
+            ],
+        ]);
+        // 向View传输数据
+        $this->assign('nums',$countNums);
+        $this->assign('teachers',$teachers);
+
+        return $this->fetch();
 
     }
 

@@ -39,4 +39,19 @@ class Teacher extends Model
     static public function encryptPassword($password){
         return sha1(md5($password).'xiaoshitou');
     }
+
+    // 进行 注销 删除session的 teacherId
+    static public function logout(){
+        session('teacherId',null);
+        return true;
+    }
+
+    // 判断用户是否登录
+    static  public function isLogin(){
+        // 未登录 返回false
+        if (is_null(session('teacherId'))){
+            return false;
+        }
+        return true;
+    }
 }
