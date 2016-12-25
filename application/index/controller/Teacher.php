@@ -15,7 +15,12 @@ class Teacher extends Index
 {
     // 显示teacher表中的所有数据
     public function index(){
-
+        // 验证是谁登录了
+        $loginName = TeacherModel::loginUser();
+        // 如果loginName为空 跳转到登录页面
+        if (is_null($loginName)){
+            return $this->error('非法访问,请登录',url('Login/index'));
+        }
         // 接收name
         $name = Request::instance()->param('name');
 
@@ -37,6 +42,7 @@ class Teacher extends Index
             ],
         ]);
         // 向View传输数据
+        $this->assign('loginName',$loginName);
         $this->assign('nums',$countNums);
         $this->assign('teachers',$teachers);
 

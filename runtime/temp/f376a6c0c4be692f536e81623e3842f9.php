@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:87:"E:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\teacher\index.html";i:1482656598;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:87:"E:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\teacher\index.html";i:1482661861;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,11 +10,14 @@
     <div class="row">
         <div class="col-md-12">
             <hr>
-            <div class="col-md-10"></div>
-            <div class="col-md-1 col-md-offset-1">
+            <div class="col-md-9"></div>
+            <div class="col-md-2">
+                <label>欢迎您，<?php echo $loginName; ?></label>
+            </div>
+            <div class="col-md-1">
                 <a href="<?php echo url('Login/logout'); ?>" class="btn btn-warning">注销</a>
             </div>
-            <hr >
+            <hr>
             <form class="form-inline" action="<?php echo url(); ?>" method="get">
                 <div class="form-group">
                     <label for="name" class="control-label">姓名</label>

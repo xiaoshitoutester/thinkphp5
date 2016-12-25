@@ -54,4 +54,15 @@ class Teacher extends Model
         }
         return true;
     }
+
+    // 返回: 登录用户的姓名 name
+    static public function loginUser(){
+        $userId = session('teacherId');
+        if (!is_null($userId)){
+            $name = Teacher::get($userId)->getData('name');
+            return $name;
+        }else{
+            return false;
+        }
+    }
 }
