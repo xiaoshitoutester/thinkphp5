@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:85:"D:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\klass\index.html";i:1482720989;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,13 +16,13 @@
                     <form class="form-inline" action="#" method="get">
                         <div class="form-group">
                             <label class="sr-only" for="name">班级名称</label>
-                            <input id="name" name="name" type="text" class="form-control" placeholder="班级名称" value="{:input('get.name')}">
+                            <input id="name" name="name" type="text" class="form-control" placeholder="班级名称" value="<?php echo input('get.name'); ?>">
                         </div>
                         <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i>&nbsp;查询</button>
                     </form>
                 </div>
                 <div class="col-md-4 text-right">
-                    <a href="{:url('add')}" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>&nbsp;新增</a>
+                    <a href="<?php echo url('add'); ?>" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>&nbsp;新增</a>
                 </div>
             </div>
             <hr>
@@ -34,13 +35,13 @@
                     <th>更新时间</th>
                     <th>操作</th>
                 </tr>
-                {foreach $klasses as $klass}
+                <?php foreach($klasses as $klass): ?>
                     <tr>
-                        <td>{$klass->getData('id')}</td>
-                        <td>{$klass->getData('name')}</td>
-                        <td>{$klass->getTeacher()->getData('name')}</td>
-                        <td>{$klass->getData('create_time')}</td>
-                        <td>{$klass->getData('update_time')}</td>
+                        <td><?php echo $klass->getData('id'); ?></td>
+                        <td><?php echo $klass->getData('name'); ?></td>
+                        <td><?php echo $klass->getTeacher()->getData('name'); ?></td>
+                        <td><?php echo $klass->getData('create_time'); ?></td>
+                        <td><?php echo $klass->getData('update_time'); ?></td>
                         <td>
                             <a href="#" class="btn btn-danger btn-sm">
                                 <i class="glyphicon glyphicon-trash"></i>&nbsp;删除</a>&nbsp;
@@ -48,9 +49,9 @@
                                 <i class="glyphicon glyphicon-pencil"></i>&nbsp;修改</a>
                         </td>
                     </tr>
-                {/foreach}
+                <?php endforeach; ?>
             </table>
-            {$klasses->render()}
+            <?php echo $klasses->render(); ?>
         </div>
     </div>
 </div>

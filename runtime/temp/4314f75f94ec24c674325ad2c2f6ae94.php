@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:85:"D:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\teacher\add.html";i:1482486413;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:85:"D:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\teacher\add.html";i:1482714702;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +9,7 @@
 <body class="container">
     <div class="row">
         <div class="col-md-12">
-            <form action="insert" method="post" role="form" class="form-horizontal">
+            <form action="<?php echo url('insert'); ?>" method="post" role="form" class="form-horizontal">
                 <div class="form-group">
                     <label class="col-md-2 control-label">姓名：</label>
                     <div class="col-md-10">
@@ -20,6 +20,12 @@
                     <label class="col-md-2 control-label">用户名：</label>
                     <div class="col-md-10">
                         <input type="text" name="username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">密码：</label>
+                    <div class="col-md-10">
+                        <input type="password" name="password">
                     </div>
                 </div>
                 <div class="form-group">
@@ -38,8 +44,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
+                    <div class="col-md-1 col-md-offset-2">
                         <input type="submit" value="保存" class="btn btn-primary">
+                    </div>
+                    <div>
+                        <input type="reset" value="重置" class="btn btn-danger">
                     </div>
                 </div>
             </form>
