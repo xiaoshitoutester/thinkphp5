@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生管理</title>
+    <link type="text/css" rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <hr>
+            <div class="row">
+                <div class="col-md-8">
+                    <form role="form" action="{:url()}" method="post" class="form-inline">
+                        <label class="sr-only">姓名</label>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <table class="table table-hover table-bordered">
+                <tr class="info">
+                    <th>序号</th>
+                    <th>姓名</th>
+                    <th>学号</th>
+                    <th>性别</th>
+                    <th>邮箱</th>
+                    <th>班级</th>
+                    <th>辅导员</th>
+                    <th>创建时间</th>
+                    <th>更新时间</th>
+                    <th>操作</th>
+                </tr>
+                {foreach $students as $student}
+                    <tr>
+                        <td>{$student->getData('id')}</td>
+                        <td>{$student->getData('name')}</td>
+                        <td>{$student->getData('num')}</td>
+                        <td>{$student->getData('sex')}</td>
+                        <td>{$student->getData('email')}</td>
+                        <td>{$student->getData('klass_id')}</td>
+                        <td></td>
+                        <td>{$student->getData('create_time')}</td>
+                        <td>{$student->getData('update_time')}</td>
+                        <td>
+                            <a>修改</a>
+                            <a>删除</a>
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            {$students->render()}
+        </div>
+    </div>
+</div>
+</body>
+</html>
