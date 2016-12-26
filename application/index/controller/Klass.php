@@ -18,7 +18,7 @@ class Klass extends Index
         $selectName = Request::instance()->param('name');
         $klass = new KlassModel();
         // 定制查询条件
-        if (!is_null($klass)){
+        if (!empty($selectName)){
             $klass->where('name','like','%'.$selectName.'%');
         }
         // 分页

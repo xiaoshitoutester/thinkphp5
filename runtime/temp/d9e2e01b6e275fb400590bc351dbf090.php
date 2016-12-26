@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:85:"E:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\klass\index.html";i:1482673087;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:85:"E:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\klass\index.html";i:1482753175;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +13,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-8">
-                    <form class="form-inline" action="#" method="get">
+                    <form class="form-inline" action="<?php echo url(); ?>" method="get">
                         <div class="form-group">
                             <label class="sr-only" for="name">班级名称</label>
                             <input id="name" name="name" type="text" class="form-control" placeholder="班级名称" value="<?php echo input('get.name'); ?>">
@@ -22,7 +22,7 @@
                     </form>
                 </div>
                 <div class="col-md-4 text-right">
-                    <a href="#" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>&nbsp;新增</a>
+                    <a href="<?php echo url('add'); ?>" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>&nbsp;新增</a>
                 </div>
             </div>
             <hr>
@@ -43,9 +43,9 @@
                         <td><?php echo $klass->getData('create_time'); ?></td>
                         <td><?php echo $klass->getData('update_time'); ?></td>
                         <td>
-                            <a href="#" class="btn btn-danger btn-sm">
+                            <a href="<?php echo url('delete?id='.$klass->getData('id')); ?>" class="btn btn-danger btn-sm">
                                 <i class="glyphicon glyphicon-trash"></i>&nbsp;删除</a>&nbsp;
-                            <a href="#" class="btn btn-primary btn-sm">
+                            <a href="<?php echo url('edit?id='.$klass->getData('id')); ?>" class="btn btn-primary btn-sm">
                                 <i class="glyphicon glyphicon-pencil"></i>&nbsp;修改</a>
                         </td>
                     </tr>

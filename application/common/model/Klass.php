@@ -29,4 +29,11 @@ class Klass extends Model
         return $this->teacher;
     }
 
+    /*
+     * 使用1对多关联，返回一个teacher对象
+     */
+    public function Teacher(){
+        return $this->belongsTo('Teacher');
+    }
+
 }

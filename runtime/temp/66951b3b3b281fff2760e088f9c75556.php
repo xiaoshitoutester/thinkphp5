@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:87:"E:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\student\index.html";i:1482758845;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,11 +13,11 @@
             <hr>
             <div class="row">
                 <div class="col-md-8">
-                    <form role="form" action="{:url()}" method="get" class="form-inline">
+                    <form role="form" action="<?php echo url(); ?>" method="get" class="form-inline">
                         <div class="form-group">
                             <label class="sr-only col=md-2" for="name">姓名</label>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" name="name" id="name" placeholder="姓名" value="{:input('get.name')}">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="姓名" value="<?php echo input('get.name'); ?>">
                             </div>
                         </div>
                         <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i>&nbsp;查询</button>
@@ -41,25 +42,25 @@
                     <th>更新时间</th>
                     <th>操作</th>
                 </tr>
-                {foreach $students as $student}
+                <?php foreach($students as $student): ?>
                     <tr>
-                        <td>{$student->getData('id')}</td>
-                        <td>{$student->getData('name')}</td>
-                        <td>{$student->getData('num')}</td>
-                        <td>{$student->sex}</td>
-                        <td>{$student->getData('email')}</td>
-                        <td>{$student->Klass->name}</td>
-                        <td>{$student->Klass->Teacher->name}</td>
-                        <td>{$student->create_time}</td>
-                        <td>{$student->update_time}</td>
+                        <td><?php echo $student->getData('id'); ?></td>
+                        <td><?php echo $student->getData('name'); ?></td>
+                        <td><?php echo $student->getData('num'); ?></td>
+                        <td><?php echo $student->sex; ?></td>
+                        <td><?php echo $student->getData('email'); ?></td>
+                        <td><?php echo $student->Klass->name; ?></td>
+                        <td><?php echo $student->Klass->Teacher->name; ?></td>
+                        <td><?php echo $student->create_time; ?></td>
+                        <td><?php echo $student->update_time; ?></td>
                         <td>
                             <a href="#" class="btn btn-danger  btn-sm"><i class="glyphicon glyphicon-trash"></i>&nbsp;修改</a>
                             <a href="#" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i>&nbsp;删除</a>
                         </td>
                     </tr>
-                {/foreach}
+                <?php endforeach; ?>
             </table>
-            {$students->render()}
+            <?php echo $students->render(); ?>
         </div>
     </div>
 </div>
