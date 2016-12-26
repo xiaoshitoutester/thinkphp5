@@ -32,4 +32,19 @@ class Student extends Index
         $this->assign('students',$students);
         return $this->fetch();
     }
+
+    // 修改学生页面
+    public function edit(){
+        $id = Request::instance()->param('id/d');
+        $student = StudentModel::get($id);
+        $this->assign('student',$student);
+        return $this->fetch();
+    }
+
+    // 保存修改的值到student表
+    public function save(){
+        $postData = Request::instance()->param();
+        dump($postData);
+        return ;
+    }
 }

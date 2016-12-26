@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:87:"E:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\student\index.html";i:1482758845;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:87:"E:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\student\index.html";i:1482759566;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,8 +54,8 @@
                         <td><?php echo $student->create_time; ?></td>
                         <td><?php echo $student->update_time; ?></td>
                         <td>
-                            <a href="#" class="btn btn-danger  btn-sm"><i class="glyphicon glyphicon-trash"></i>&nbsp;修改</a>
-                            <a href="#" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i>&nbsp;删除</a>
+                            <a href="#" class="btn btn-danger  btn-sm"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</a>
+                            <a href="<?php echo url('edit?id='.$student->getData('id')); ?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i>&nbsp;修改</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

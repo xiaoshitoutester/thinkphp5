@@ -53,8 +53,8 @@
                         <td>{$student->create_time}</td>
                         <td>{$student->update_time}</td>
                         <td>
-                            <a href="#" class="btn btn-danger  btn-sm"><i class="glyphicon glyphicon-trash"></i>&nbsp;修改</a>
-                            <a href="#" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i>&nbsp;删除</a>
+                            <a href="#" class="btn btn-danger  btn-sm"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</a>
+                            <a href="{:url('edit?id='.$student->getData('id'))}" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i>&nbsp;修改</a>
                         </td>
                     </tr>
                 {/foreach}
