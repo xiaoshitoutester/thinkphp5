@@ -20,6 +20,7 @@
                     <label class="control-label col-md-2" for="teacherId">辅导员：</label>
                     <div class="col-md-2">
                         <select name="teacher_id" id="teacherId" class="form-control">
+                            <option value="">全部</option>
                             {foreach $teachers as $teacher}
                                 <option value="{$teacher->getData('id')}">
                                     {$teacher->getData('name')}
