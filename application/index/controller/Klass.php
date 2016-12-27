@@ -80,6 +80,7 @@ class Klass extends Index
     // 更新修改班级信息
     public function update(){
         $postData = Request::instance()->param();
+
         // 将修改的信息 保存到klass表中
         $klass = new KlassModel();
         $state = $klass->validate(true)->isUpdate(true)->save($postData);

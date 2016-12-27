@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:87:"D:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\student\index.html";i:1482746457;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:87:"D:\phpenv\Apache24\htdocs\thinkphp5\public/../application/index\view\student\index.html";i:1482806457;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +13,19 @@
             <hr>
             <div class="row">
                 <div class="col-md-8">
-                    <form role="form" action="<?php echo url(); ?>" method="post" class="form-inline">
-                        <label class="sr-only">姓名</label>
+                    <form role="form" action="<?php echo url(); ?>" method="get" class="form-inline">
+                        <div class="form-group">
+                            <label class="sr-only col=md-2" for="name">姓名</label>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="姓名" value="<?php echo input('get.name'); ?>">
+                            </div>
+                        </div>
+                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i>&nbsp;查询</button>
+
                     </form>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="<?php echo url('add'); ?>" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>&nbsp;新增</a>
                 </div>
             </div>
             <hr>
@@ -37,15 +47,15 @@
                         <td><?php echo $student->getData('id'); ?></td>
                         <td><?php echo $student->getData('name'); ?></td>
                         <td><?php echo $student->getData('num'); ?></td>
-                        <td><?php echo $student->getData('sex'); ?></td>
+                        <td><?php echo $student->sex; ?></td>
                         <td><?php echo $student->getData('email'); ?></td>
-                        <td><?php echo $student->getData('klass_id'); ?></td>
-                        <td></td>
-                        <td><?php echo $student->getData('create_time'); ?></td>
-                        <td><?php echo $student->getData('update_time'); ?></td>
+                        <td><?php echo $student->Klass->name; ?></td>
+                        <td><?php echo $student->Klass->Teacher->name; ?></td>
+                        <td><?php echo $student->create_time; ?></td>
+                        <td><?php echo $student->update_time; ?></td>
                         <td>
-                            <a>修改</a>
-                            <a>删除</a>
+                            <a href="<?php echo url('delete?id='.$student->getData('id')); ?>" class="btn btn-danger  btn-sm"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</a>
+                            <a href="<?php echo url('edit?id='.$student->getData('id')); ?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i>&nbsp;修改</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
