@@ -17,6 +17,15 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="col-md-offset-2">
+                        {foreach $course->Klasses()->select() as $klass}
+                            <input type="checkbox" name="klass_id[]" id="klass_id_{$klass->id}" value="{$klass->id}">
+                            <label for="klass_id_{$klass->id}">{$klass->name}</label>
+                        {/foreach}
+                    </div>
+
+                </div>
+                <div class="form-group">
                     <div class="col-md-1 col-md-offset-2">
                         <input type="submit" value="保存" class="btn btn-primary">
                     </div>
