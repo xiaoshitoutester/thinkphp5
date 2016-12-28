@@ -9,7 +9,7 @@
 namespace app\index\controller;
 use app\common\model\Course as CourseModel;
 use think\Request;
-use app\common\model\KlassCourse as KlassCourseModel;
+
 
 class Course extends Index
 {
@@ -89,8 +89,50 @@ class Course extends Index
 
     // 保存更新数据
     public function update(){
-        $postData = Request::instance()->param();
-        return dump($postData);
+        // 获取id 的course对象
+        $courseId = Request::instance()->param('id/d');
+        if (is_null($courseModel = CourseModel::get($courseId))){
+            return $this->error('不存在ID为：'.$courseId."的记录。");
+        }
+        // 更新课程名
+        $courseModel->name = Request::instance()->param('name');
+        if (!$courseModel->validate(true)->save()){
+            return $this->error('更新课程名错误：'.$courseModel->getError());
+        }
+
+        // 删除关联表中course_id 为 id 的所有记录
+        $where = ['course_id' => $courseId];
+        // 执行删除操作，返回值为false，或者删除的条数，为0时 我们也认为删除成功
+        if (false === $courseModel->KlassCourse()->where($where)->delete()){
+            return $this->error('删除班级--课程关联表信息错误：'.$courseModel->KlassCourse()->getError());
+        }
+
+        // 向关联表中添加 course_id 和 klass_id 关联的记录
+        $klassIds = Request::instance()->param('klass_id/a');
+        if (!empty($klassIds)){
+            if (!$courseModel->Klasses()->saveAll($klassIds)){
+                return $this->error('班级--课程表保存错误：'.$courseModel->Klasses()->getError());
+            }
+        }
+
+        return $this->success('更新成功',url('index'));
+    }
+
+    // 删除 course 课程记录
+    public function delete(){
+        // 获取id
+        $courseId = Request::instance()->param('id/d');
+        // 查找出 相关记录
+        $courseModel = CourseModel::get($courseId);
+        if (empty($courseModel)){
+            return $this->error('不存在ID为：'.$courseId."的记录。");
+        }
+        // 然后删除
+        if (!$courseModel->delete()){
+            return $this->error('删除课程信息失败：'.$courseModel->getError());
+        }
+
+        return $this->error('删除成功',url('index'));
     }
 
 }

@@ -47,7 +47,7 @@ class Student extends Model
     }
 
     /*
-     * 相应的关联,一对多关联
+     * 相应的关联,多对1关联
      */
     public function Klass(){
         return $this->belongsTo('Klass');
