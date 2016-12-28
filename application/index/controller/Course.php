@@ -79,4 +79,18 @@ class Course extends Index
         return ;
     }
 
+    // 编辑页面
+    public function edit(){
+        $courseId = Request::instance()->param('id/d');
+        $courseModel = CourseModel::get($courseId);
+        $this->assign('course',$courseModel);
+        return $this->fetch();
+    }
+
+    // 保存更新数据
+    public function update(){
+        $postData = Request::instance()->param();
+        return dump($postData);
+    }
+
 }

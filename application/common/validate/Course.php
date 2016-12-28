@@ -12,7 +12,7 @@ use think\Validate;
 class Course extends Validate
 {
     protected $rule = [
-        'name' => 'require',
+        'name' => 'require|unique:course',
 
     ];
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改课程</title>
+    <link type="text/css" rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" action="{:url('update')}" method="post" role="form">
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">课程名称：</label>
+                    <div class="col-md-3">
+                        <input class="form-control" name="name" id="name" type="text" value="{$course->name}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2">
+                        {foreach $course->Klasses()->select() as $klass}
+                            <input type="checkbox" name="klass_id[]" value="{$klass->id}" id="klass_id_{$klass->id}">
+                            <label for="klass_id_{$klass->id}">{$klass->name}</label>
+                        {/foreach}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-1 col-md-offset-2">
+                        <input type="submit" value="保存" class="btn btn-primary">
+                    </div>
+                    <div class="col-md-1 col-md-offset-1">
+                        <input type="reset" value="重置" class="btn btn-danger">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

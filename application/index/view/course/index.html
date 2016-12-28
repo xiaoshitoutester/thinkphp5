@@ -25,6 +25,7 @@
                     <th>名称</th>
                     <th>创建时间</th>
                     <th>更新时间</th>
+                    <th>操作</th>
                 </tr>
                 {foreach $courses as $course}
                     <tr>
@@ -32,6 +33,10 @@
                         <td>{$course->getData('name')}</td>
                         <td>{$course->getData('create_time')}</td>
                         <td>{$course->getData('update_time')}</td>
+                        <td>
+                            <a href="{:url('edit?id='.$course->id)}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</a>
+                            <a href="{:url('edit?id='.$course->id)}" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i>&nbsp;修改</a>
+                        </td>
                     </tr>
                 {/foreach}
             </table>
