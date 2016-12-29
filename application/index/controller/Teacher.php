@@ -88,11 +88,17 @@ class Teacher extends Index
 
     // 添加teacher数据页面
     public function add(){
-        try{
-            return $this->fetch();
-        }catch (\Exception $e){
-            return "系统错误".$e->getMessage();
-        }
+        // 实例化
+        $teacher = new TeacherModel();
+        // 设置默认值
+        $teacher->id = 0;
+        $teacher->name = '';
+        $teacher->sex = 0;
+        $teacher->username = '';
+        $teacher->email = '';
+        $this->assign('teacher',$teacher);
+        // 调用edit模版
+        return $this->fetch('edit');
     }
 
 
@@ -139,46 +145,35 @@ class Teacher extends Index
 
     // 修改action
     public function edit(){
-        try{
-            // 获取用户提交的id
-            $id = Request::instance()->param('id/d');
+        // 获取用户提交的id
+        $id = Request::instance()->param('id/d');
 
-            // 获取Id对应的记录
-            $teacher = TeacherModel::get($id);
-            if (is_null($teacher)){
-                return $this->error("没有找到id为：".$id."的记录。");
-            }
-            $this->assign('teacher',$teacher->getData());
-            return $this->fetch();
-        }catch (\think\Exception\HttpResponseException $exception){
-            throw $exception;
-        }catch (\Exception $e){
-            return "系统错误".$e->getMessage();
+        // 获取Id对应的记录
+        $teacher = TeacherModel::get($id);
+        if (is_null($teacher)){
+            return $this->error("没有找到id为：".$id."的记录。");
         }
+        $this->assign('teacher',$teacher);
+        return $this->fetch();
 
     }
 
     // 更新数据
     public function update(){
-        try{
-            // 接收数据
-            $postData = Request::instance()->param();
+        // 接收数据
+        $postData = Request::instance()->param();
 
-            // 将数据存入teacher标配
-            $teacher = new TeacherModel();
-            $state = $teacher->validate(true)->isUpdate(true)->save($postData);
+        // 将数据存入teacher标配
+        $teacher = new TeacherModel();
+        $state = $teacher->validate(true)->isUpdate(true)->save($postData);
 
-            // 根据结果 提示信息
-            if ($state){
-                return $this->success('修改成功',url('index'));
-            }else{
-                return $this->error('修改失败'.$teacher->getError());
-            }
-        }catch (\think\Exception\HttpResponseException $exception){
-            throw $exception;
-        }catch (\Exception $e){
-            return '系统错误'.$e->getMessage();
+        // 根据结果 提示信息
+        if ($state){
+            return $this->success('修改成功',url('index'));
+        }else{
+            return $this->error('修改失败'.$teacher->getError());
         }
+
     }
 
 
