@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>修改教师</title>
+    <title>{eq name="$teacher->id" value=""}新增教师{else /}修改教师{/eq}</title>
     <link type="text/css" rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <form action="{:url('update')}" method="post" role="form" class="form-horizontal">
+            {php}$action = request()->action() === 'add' ? 'save' : 'update'{/php}
+            <form action="{:url($action)}" method="post" role="form" class="form-horizontal">
+
                 <div class="form-group">
                     <label class="control-label col-md-2">用户名</label>
                     <div class="col-md-10">

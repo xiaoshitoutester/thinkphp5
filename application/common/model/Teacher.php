@@ -27,6 +27,7 @@ class Teacher extends Model
         return false;
     }
 
+    // 验证密码是否正确
     public function checkPassword($password){
         if ($this->getData('password') === $this::encryptPassword($password)){
             return true;

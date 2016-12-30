@@ -51,38 +51,15 @@ class Teacher extends Index
     }
 
     // 向teacher表中插入数据
-    public function insert(){
-        $message = '';
-        try{
-            // 接收传入数据
-            $postData = Request::instance()->post();
-
-            $Teacher = new TeacherModel();
-
-            // 为对象赋值
-            $Teacher->name = $postData['name'];
-            $Teacher->sex = $postData['sex'];
-            $Teacher->username = $postData['username'];
-            $Teacher->email = $postData['email'];
-            $Teacher->password = $Teacher::encryptPassword($postData['password']);
-
-            // 新增数据到teacher表 增加自动验证
-            $res = $Teacher->validate(true)->save($Teacher->getData());
-
-            // 反馈结果
-            if ($res){
-                return $this->success('用户'.$Teacher->username.'新增成功',url('index'));
-            }else{
-                $message = '新增失败'.$Teacher->getError();
-            }
-            // 捕获thinkphp内置的异常，向上抛出 让thinkphp处理
-        } catch (\think\Exception\HttpResponseException $e){
-            throw $e;
-        } catch (\Exception $e){
-            return "系统错误".$e->getMessage();
+    public function save(){
+        $teacher = new TeacherModel();
+        // 给teacher的密码设置默认值
+        $teacher->password = $teacher->encryptPassword('123456');
+        // 新增数据
+        if (false === $this->saveTeacher($teacher)){
+            return $this->error('新增失败：'.$teacher->getError());
         }
-
-        return $this->error($message);
+        return $this->success('新增成功',url('index'));
 
     }
 
@@ -91,9 +68,9 @@ class Teacher extends Index
         // 实例化
         $teacher = new TeacherModel();
         // 设置默认值
-        $teacher->id = 0;
+        $teacher->id = '';
         $teacher->name = '';
-        $teacher->sex = 0;
+        $teacher->sex = 1;
         $teacher->username = '';
         $teacher->email = '';
         $this->assign('teacher',$teacher);
@@ -159,21 +136,45 @@ class Teacher extends Index
     }
 
     // 更新数据
-    public function update(){
-        // 接收数据
-        $postData = Request::instance()->param();
-
-        // 将数据存入teacher标配
-        $teacher = new TeacherModel();
-        $state = $teacher->validate(true)->isUpdate(true)->save($postData);
-
-        // 根据结果 提示信息
-        if ($state){
-            return $this->success('修改成功',url('index'));
-        }else{
-            return $this->error('修改失败'.$teacher->getError());
+    public function update()
+    {
+        // 接收数据 id
+        $updateId = Request::instance()->param('id/d');
+        // 获取teacher对象
+        $teacher = TeacherModel::get($updateId);
+        // 更新数据到teacher表
+        if (!empty($teacher)) {
+            if (false === $this->saveTeacher($teacher, true)) {
+                return $this->error('修改失败：' . $teacher->getError());
+            }
+        } else {
+            return $this->error('不存在ID为：' . $updateId);
         }
 
+        return $this->success('修改成功', url('index'));
+    }
+
+    // 重构save 和 update方法：保存Teacher数据到数据库
+    /*
+     * @param $teacher teacher对象
+     * @isUpdate 是否更新,默认值false
+     * @return false|intenger
+     */
+    private function saveTeacher($teacher, $isUpdate = false){
+        // 需要写入的数据
+        if (!$isUpdate){
+            $teacher->username = input('username');
+        }
+        $teacher->name = input('name');
+        $teacher->sex = input('sex');
+        $teacher->email = input('email');
+        // 保存或者更新
+        return $teacher->validate(true)->save($teacher->getData());
+    }
+
+    // 测试方法
+    public function test(){
+        return dump($this->request->action());
     }
 
 
