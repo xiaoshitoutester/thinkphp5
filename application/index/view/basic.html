@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{block name="title"}ThinkPHP{/block}</title>
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/static/bootstrap/css/bootstrap.min.css">
+    <script src="__PUBLIC__/static/js/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <!--导航-->
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a href="#" class="navbar-brand">流年</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="{:url('Teacher/index')}">教师管理</a></li>
+                            <li><a href="{:url('Student/index')}">学生管理</a></li>
+                            <li><a href="{:url('Klass/index')}">班级管理</a></li>
+                            <li><a href="{:url('Course/index')}">课程管理</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a>{$Think.session.teacher->name}</a></li>
+                            <li><a href="{:url('Login/logout')}">注销</a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    {block name="content"}{/block}
+
+</div>
+</body>
+</html>

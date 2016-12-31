@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>班级管理</title>
-    <link type="text/css" rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
-</head>
-<body>
-<div class="container">
+{extend name="basic" /}
+{block name="title"}班级管理{/block}
+{block name="content"}
     <div class="row">
         <div class="col-md-12">
-            <hr>
             <div class="row">
                 <div class="col-md-8">
                     <form class="form-inline" action="{:url()}" method="get">
@@ -53,6 +46,4 @@
             {$klasses->render()}
         </div>
     </div>
-</div>
-</body>
-</html>
+{/block}

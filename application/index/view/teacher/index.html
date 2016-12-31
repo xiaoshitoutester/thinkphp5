@@ -1,4 +1,53 @@
-{extend name="index" /}
-{block name="title"}
-    教师管理
+{extend name="basic" /}
+{block name="title"}教师管理{/block}
+{block name="content"}
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-8">
+            <form class="form-inline" action="{:url()}" method="get">
+                <div class="form-group">
+                    <label for="name" class="control-label">姓名</label>
+                    <input name="name" type="text" id="name" placeholder="姓名" class="form-control" value="{:input('get.name')}">
+                </div>
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search">查询</i></button>
+            </form>
+        </div>
+        <div class="col-md-4 text-right">
+            <a href="{:url('add')}" class="btn btn-primary"><i class="glyphicon glyphicon-plus">增加教师</i></a>
+        </div>
+        <hr />
+        <hr />
+        <div>
+            <label >记录数：{$nums}</label>
+        </div>
+        <table class="table table-hover table-bordered">
+            <tr class="info">
+                <th>序号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>用户名</th>
+                <th>邮箱</th>
+                <th>创建时间</th>
+                <th>更新时间</th>
+                <th>操作</th>
+            </tr>
+            {foreach $teachers as $teacher}
+            <tr>
+                <td>{$teacher.id}</td>
+                <td>{$teacher.name}</td>
+                <td>{eq name="teacher.sex" value='0'}男{else /}女{/eq}</td>
+                <td>{$teacher.username}</td>
+                <td>{$teacher.email}</td>
+                <td>{$teacher.create_time}</td>
+                <td>{$teacher.update_time}</td>
+                <td>
+                    <a href="{:url('edit?id='.$teacher->getData('id'))}" class="btn btn-primary">修改</a>
+                    <a href="{:url('delete?id='.$teacher->getData('id'))}" class="btn btn-danger">删除</a>
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+        {$teachers->render()}
+    </div>
+</div>
 {/block}
