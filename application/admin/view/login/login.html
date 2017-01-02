@@ -1,12 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>登陆</title>
-</head>
-<body>
-<div class="container">
-
-</div>
-</body>
-</html>
+{extend name="basic" /}
+{block name="title"}登录{/block}
+{block name="content"}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="text-center"><h1>登录</h1></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal" action="{:url('Login/doLogin')}" method="post" role="form">
+                            <div class="form-group">
+                                <label class="control-label col-md-4">用户名：</label>
+                                <div class="col-md-4">
+                                    <input type="text" name="username" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">密码：</label>
+                                <div class="col-md-4">
+                                    <input type="password" name="password" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">验证码：</label>
+                                <div class="col-md-4">
+                                    <input type="text" name="code" class="form-control">
+                                </div>
+                                <div class="col-md-1">
+                                    {:captcha_img()}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-4 col-md-4">
+                                    <input type="submit" value="登录" class="btn btn-primary btn-block btn-lg">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}

@@ -7,14 +7,10 @@
  * Time: 17:01
  */
 namespace app\admin\controller;
-use think\Input;
 use think\Controller;
-use Captcha;
 
-class index extends Controller
+class Index extends Controller
 {
-    public function index(){
-        return $this->fetch();
-    }
+
 
 }
