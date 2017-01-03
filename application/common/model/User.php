@@ -28,4 +28,33 @@ class User extends Model
         return false;
     }
 
+    // 退出登录
+    public static function logout(){
+        // 清空session
+        session('user',null);
+        return true;
+    }
+
+    // 判断用户是否登录
+    public static function isLogin(){
+        if (session('user')){
+            return true;
+        }
+        return false;
+    }
+
+    // 修改密码
+    public static function modifiePassword($oldPassword, $newPassword){
+        // 获取user对象
+        $user = User::get(session('user')->id);
+        if (md5($oldPassword) !== $user->password){
+            // 原始密码不正确
+            return false;
+        }
+        $user->password = md5($newPassword);
+        $user->save();
+        return true;
+
+    }
+
 }
