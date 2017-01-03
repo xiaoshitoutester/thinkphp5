@@ -13,12 +13,18 @@ class News extends Index
 {
     // 新闻首页
     public function index(){
-        $content = $this->getWebContent();
-        preg_match_all('/(\d{2}:\d{2}:\d{2})/', $content, $times);
-        preg_match_all('/<h4>(.+?)<\/h4>/', $content, $datas);
-//        $this->assign('content', $content);
-//        return $this->fetch();
-        return dump($datas);
+        $content = $this->getHtmlContent($this->getWebContent());
+        // 利用正则表达式取出 新闻的时间，内容
+        preg_match_all('/<div class="jin-flash_time">(\d{2}:\d{2}:\d{2})<\/div>.*?<h4>(.+?)<\/h4>/', $content, $datas);
+        $news = array();
+        foreach ($datas[1] as $key => $value){
+            $tmp = array();
+            $tmp['time'] = $value;
+            $tmp['content'] = $datas[2][$key];
+            array_push($news, $tmp);
+        }
+        $this->assign('news', $news);
+        return $this->fetch();
     }
 
     //获取新闻内容
@@ -34,6 +40,16 @@ class News extends Index
         $output = curl_exec($ch);
         curl_close($ch);
         return $output;
+    }
+
+    // 去除内容中空白字符
+    private function getHtmlContent($content){
+        $str = trim($content);
+        $str = str_replace('\t', '', $str);
+        $str = str_replace('\r\n', '', $str);
+        $str = str_replace('\r', '', $str);
+        $str = str_replace('\n', '', $str);
+        return trim($str);
     }
 
 

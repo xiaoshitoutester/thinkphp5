@@ -1,5 +1,28 @@
 {extend name='basic' /}}
 {block name='title'}新闻{/block}
 {block name="content"}
-<p>{$content}</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center">
+                <h1>实时新闻</h1>
+            </div>
+            <div class="text-right">
+                <a href="{:url('Admin/admin')}" class="btn btn-sm btn-success"> 返回主页</a>
+            </div>
+            <table class="table table-bordered table-hover">
+                <tr class="info">
+                    <th>时间</th>
+                    <th>内容</th>
+                </tr>
+                {foreach $news as $new}
+                    <tr>
+                        <td>{$new['time']}</td>
+                        <td>{$new['content']}</td>
+                    </tr>
+                {/foreach}
+            </table>
+        </div>
+    </div>
+</div>
 {/block}
