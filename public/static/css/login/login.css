@@ -1,0 +1,13 @@
+.title {
+    margin-top: 100px;
+}
+
+.title span {
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.captcha {
+    height: 30px;
+    margin-top: 3px;
+}

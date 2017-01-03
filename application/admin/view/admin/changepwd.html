@@ -4,6 +4,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            <div class="text-right">
+                <h3>欢迎您：{$Think.session.user->username}</h3>
+            </div>
+        </div>
+        <div class="col-md-12">
             <div class="text-center"><h1>修改密码</h1></div>
         </div>
         <form class="form-horizontal" action="{:url('Admin/SaveChangepwd')}" method="post" role="form">

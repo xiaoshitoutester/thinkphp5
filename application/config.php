@@ -236,7 +236,7 @@ return [
         // 验证码字体大小
         'fontSize' => 20,
         // 是否画混淆曲线
-        'useCurve' => true,
+        'useCurve' => false,
         // 验证码位数
         'length' => 4,
         // 验证成功后是否重置
