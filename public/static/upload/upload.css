@@ -1,0 +1,35 @@
+.top {
+    height: 50px;
+}
+
+.title {
+    width: 70%;
+    height: 50px;
+    border-radius: 15px;
+    background-color: #F5DEB3;
+    margin: 0 auto;
+    line-height: 50px;
+    text-align: center;
+}
+
+.title span {
+    color: #FFFFFF;
+    font-size: 20px;
+}
+
+.forms {
+    width: 70%;
+    margin: 0 auto;
+    background-color: #FAFAD2;
+    height: 500px;
+    padding-top: 50px;
+}
+
+#progressbox {
+    width: 80%;
+}
+
+#progressbar {
+    width: 0%;
+    height: 20px;
+}

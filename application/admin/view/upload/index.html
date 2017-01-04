@@ -1,11 +1,81 @@
 {extend name="basic" /}
 {block name="title"}文件上传{/block}
+{block name="css"}
+    <link rel="stylesheet" href="__PUBLIC__/static/upload/upload.css">
+{/block}
+{block name="js"}
+    <script type="text/javascript" src="__PUBLIC__/static/js/jquery.form.js"></script>
+{/block}
 {block name="content"}
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <div class="top"></div>
+                <div class="title"><span>文件上传</span></div>
+                <div class="forms">
+                    <form action="{:url('Upload/upload')}" method="post" class="form-horizontal" enctype="multipart/form-data" id="uploadform" onsubmit="return false;">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <input type="file" class="form-control" name="file" id="uploadfile">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" class="btn btn-success btn-block" value="上传">
+                            </div>
+                        </div>
+                    </form>
 
+                    <!--进度条-->
+                    <div class="progress" id="progressbox">
+                        <div id="progressbar" class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                            <div id="progress">0%</div>
+                        </div>
+                    </div>
+                    <div id="output" class="output"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-2">
+                        <a href="{:url('Admin/admin')}" class="btn btn-success">返回主页</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var progressbox=$("#progressbox");
+        var progressbar=$("#progressbar");
+        var progress=$("#progress");
+        var completed="0%";
+
+        var options={
+            beforeSubmit:beforeSubmit,
+            uploadProgress:OnProgress,
+            success:afterSuccess,
+            resetForm:true
+        };
+
+        $("#uploadform").submit(function(){
+            $(this).ajaxSubmit(options);
+            return false;
+        });
+
+        function OnProgress(event,position,total,percentComplete ) {
+            progressbar.width(percentComplete + "%");
+            progress.html(percentComplete + "%");
+        }
+
+        function afterSuccess(){
+            $("#output").html("上传完成!!");
+        }
+
+        function beforeSubmit(){
+            if (!$("#uploadfile").val()) {
+                $("#output").html("请选择文件!!");
+                return false;
+            }
+            progressbar.width(completed);
+            progress.html(completed);
+        }
+    });
+</script>
 {/block}
