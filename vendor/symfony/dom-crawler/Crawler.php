@@ -669,7 +669,7 @@ class Crawler extends \SplObjectStorage
     public function selectLink($value)
     {
         $xpath = sprintf('descendant-or-self::a[contains(concat(\' \', normalize-space(string(.)), \' \'), %s) ', static::xpathLiteral(' '.$value.' ')).
-                            sprintf('or ./img[contains(concat(\' \', normalize-space(string(@alt)), \' \'), %s)]]', static::xpathLiteral(' '.$value.' '));
+                            sprintf('or ./images[contains(concat(\' \', normalize-space(string(@alt)), \' \'), %s)]]', static::xpathLiteral(' '.$value.' '));
 
         return $this->filterRelativeXPath($xpath);
     }

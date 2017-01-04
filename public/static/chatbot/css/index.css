@@ -1,0 +1,71 @@
+body {
+    background: url("../images/bg.png") repeat fixed center top;
+    background-color: #e5e5d7;
+    margin: 0px;
+}
+
+#liaotian {
+    background: url("../images/bg2.gif") repeat fixed;
+    height: 500px;
+    overflow-y: scroll;
+    clear: both;
+}
+
+#talkbox {
+    border:solid 1px #888;
+    border-radius: 20px;
+}
+
+.me {
+    width: 100%;
+    display: block;
+    clear: both;
+    margin-top: 3px;
+    overflow: hidden;
+}
+
+.me_img {
+    float: right;
+    width: 37px;
+    height: 45px;
+    margin-right: 10px;
+    background: url("../images/talk.png") no-repeat 0px -240px;
+    overflow: hidden;
+}
+
+.me_msg{
+    float: right;
+    color: blue;
+    width: 317px;
+    font-size: 14px;
+    margin-right: 7px;
+    text-align: right;
+    line-height: 20px;
+    overflow: hidden;
+}
+
+.bot {
+    border-bottom:solid 1px #eeeeee;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+}
+
+.bot_img {
+    float: left;
+    width: 45px;
+    height: 43px;
+    margin-left: 10px;
+    background: url("../images/talk.png") no-repeat 0px -180px;
+    overflow: hidden;
+}
+
+.bot_msg {
+    float: left;
+    color: green;
+    font-size: 14px;
+    margin-left: 7px;
+    line-height: 20px;
+    width: 317px;
+    overflow: hidden;
+}

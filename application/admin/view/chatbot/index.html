@@ -1,0 +1,62 @@
+{extend name="basic" /}
+{block name="title"}聊天机器人{/block}
+{block name="css"}
+    <link rel="stylesheet" href="__PUBLIC__/static/chatbot/css/index.css">
+{/block}
+{block name="content"}
+<div class="container">
+    <div class="row">
+        <div class="text-center">
+            <h1>机器人</h1>
+        </div>
+        <div id="talkbox" class="col-md-12">
+            <div id="liaotian"></div>
+        </div>
+        <div class="col-md-12">
+            <form action="{:url('Chatbot/getData')}" method="post" onsubmit="run();return false;">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="msg" id="msg">
+                    </div>
+                    <div class="col-md-1">
+                        <input type="submit" class="btn btn-success">
+                    </div>
+                    <div class="col-md-1">
+                        <a href="{:url('Admin/admin')}" class="btn btn-success">返回主页</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script language="JavaScript" type="text/javascript">
+    function run() {
+        var message = $('#msg').val();
+        if (message == ''){
+            return false;
+        }
+        $('#msg').val("");
+        addMsg('me', message);
+        $.post(
+                "getData",
+                {'msg':message},
+                function (data) {
+                    console.log(data);
+                    addMsg('bot', data['result']['text']);
+                }
+        );
+    }
+    
+    function addMsg(username, msg) {
+        var oldHtml = $('#liaotian').html();
+        if (username == 'me'){
+            var newHtml = "<div class='me'><span class='me_img'></span><span class='me_msg'>"+msg+"</span></div>"
+        }else {
+            var newHtml = "<div class='bot'><span class='bot_img'></span><span class='bot_msg'>"+msg+"</span></div>";
+        }
+        $('#liaotian').html(oldHtml+newHtml);
+        var scrollToTop = $('#liaotian')[0].scrollHeight;
+        $('#liaotian').scrollTop(scrollToTop);
+    }
+</script>
+{/block}

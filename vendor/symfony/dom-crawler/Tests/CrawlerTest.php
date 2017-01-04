@@ -371,7 +371,7 @@ EOF
 
     public function testHtml()
     {
-        $this->assertEquals('<img alt="Bar">', $this->createTestCrawler()->filterXPath('//a[5]')->html());
+        $this->assertEquals('<images alt="Bar">', $this->createTestCrawler()->filterXPath('//a[5]')->html());
         $this->assertEquals('<input type="text" value="TextValue" name="TextName"><input type="submit" value="FooValue" name="FooName" id="FooId"><input type="button" value="BarValue" name="BarName" id="BarId"><button value="ButtonValue" name="ButtonName" id="ButtonId"></button>', trim($this->createTestCrawler()->filterXPath('//form[@id="FooFormId"]')->html()));
 
         try {
@@ -409,10 +409,10 @@ EOF
         $this->assertCount(1, $crawler->filterXPath('//div[@id="parent"]')->filterXPath('./div'), 'A child selection finds only the current div');
         $this->assertCount(3, $crawler->filterXPath('//div[@id="parent"]')->filterXPath('descendant::div'), 'A descendant selector matches the current div and its child');
         $this->assertCount(3, $crawler->filterXPath('//div[@id="parent"]')->filterXPath('//div'), 'A descendant selector matches the current div and its child');
-        $this->assertCount(5, $crawler->filterXPath('(//a | //div)//img'));
-        $this->assertCount(7, $crawler->filterXPath('((//a | //div)//img | //ul)'));
-        $this->assertCount(7, $crawler->filterXPath('( ( //a | //div )//img | //ul )'));
-        $this->assertCount(1, $crawler->filterXPath("//a[./@href][((./@id = 'Klausi|Claudiu' or normalize-space(string(.)) = 'Klausi|Claudiu' or ./@title = 'Klausi|Claudiu' or ./@rel = 'Klausi|Claudiu') or .//img[./@alt = 'Klausi|Claudiu'])]"));
+        $this->assertCount(5, $crawler->filterXPath('(//a | //div)//images'));
+        $this->assertCount(7, $crawler->filterXPath('((//a | //div)//images | //ul)'));
+        $this->assertCount(7, $crawler->filterXPath('( ( //a | //div )//images | //ul )'));
+        $this->assertCount(1, $crawler->filterXPath("//a[./@href][((./@id = 'Klausi|Claudiu' or normalize-space(string(.)) = 'Klausi|Claudiu' or ./@title = 'Klausi|Claudiu' or ./@rel = 'Klausi|Claudiu') or .//images[./@alt = 'Klausi|Claudiu'])]"));
     }
 
     public function testFilterXPath()
@@ -588,7 +588,7 @@ EOF
         $crawler = $this->createTestCrawler()->filterXPath('//a');
 
         $this->assertCount(0, $crawler->filterXPath('self::a'), 'The fake root node has no "real" element name');
-        $this->assertCount(0, $crawler->filterXPath('self::a/img'), 'The fake root node has no "real" element name');
+        $this->assertCount(0, $crawler->filterXPath('self::a/images'), 'The fake root node has no "real" element name');
         $this->assertCount(10, $crawler->filterXPath('self::*/a'));
     }
 
@@ -1029,10 +1029,10 @@ HTML;
                     <a href="/foo">Fabien"s Foo</a>
                     <a href="/foo">\' Fabien"s Foo</a>
 
-                    <a href="/bar"><img alt="Bar"/></a>
-                    <a href="/bar"><img alt="   Fabien\'s Bar   "/></a>
-                    <a href="/bar"><img alt="Fabien&quot;s Bar"/></a>
-                    <a href="/bar"><img alt="\' Fabien&quot;s Bar"/></a>
+                    <a href="/bar"><images alt="Bar"/></a>
+                    <a href="/bar"><images alt="   Fabien\'s Bar   "/></a>
+                    <a href="/bar"><images alt="Fabien&quot;s Bar"/></a>
+                    <a href="/bar"><images alt="\' Fabien&quot;s Bar"/></a>
 
                     <a href="?get=param">GetLink</a>
 
@@ -1062,7 +1062,7 @@ HTML;
                         <div id="child"></div>
                         <div id="child2" xmlns:foo="http://example.com"></div>
                     </div>
-                    <div id="sibling"><img /></div>
+                    <div id="sibling"><images /></div>
                 </body>
             </html>
         ');
