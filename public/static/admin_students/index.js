@@ -1,3 +1,4 @@
+/*选中所有的记录*/
 function selectAll() {
     var clidId = document.getElementById('selectAll');
     var clos = document.getElementsByClassName('boxs');
@@ -10,4 +11,23 @@ function selectAll() {
             clos[i].checked = false;
         }
     }
+}
+/*删除选中的所有记录*/
+function delLists() {
+    var myform = document.getElementById('myform');
+    var objs = document.getElementsByClassName('boxs');
+    var isSelect = false;
+    // 判断是否有选中的记录
+    for (var i = 0; i < objs.length; i++){
+        if (objs[i].checked){
+            isSelect = true;
+            break;
+        }
+    }
+    if (!isSelect){
+        alert('请至少选中一条记录!');
+        return false;
+    }
+    // 提交
+    myform.submit;
 }

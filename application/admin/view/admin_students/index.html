@@ -7,32 +7,46 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-bordered table-hover">
-                <tr class="info">
-                    <th><input type="checkbox" id="selectAll" onclick="selectAll();"></th>
-                    <th>ID</th>
-                    <th>姓名</th>
-                    <th>性别</th>
-                    <th>年龄</th>
-                    <th>电话</th>
-                    <th>是否删除</th>
-                    <th>创建时间</th>
-                    <th>更新时间</th>
-                </tr>
-                {foreach $adminStudents as $adminStudent}
-                    <tr>
-                        <td><input class="boxs" type="checkbox" name="check[]" value="{$adminStudent->id}"></td>
-                        <td>{$adminStudent->id}</td>
-                        <td>{$adminStudent->name}</td>
-                        <td>{$adminStudent->sex}</td>
-                        <td>{$adminStudent->age}</td>
-                        <td>{$adminStudent->phone}</td>
-                        <td>{$adminStudent->del}</td>
-                        <td>{$adminStudent->create_time}</td>
-                        <td>{$adminStudent->update_time}</td>
+            <form action="{:url('AdminStudents/delete')}" method="post" onsubmit="return delLists();" id="myform">
+                <hr>
+                <div class="text-right">
+                    <a href="#" class="btn btn-success">新增</a>
+                    <input type="submit" value="全部删除" class="btn btn-danger">
+                </div>
+                <hr>
+                <table class="table table-bordered table-hover">
+                    <tr class="info">
+                        <th><input type="checkbox" id="selectAll" onclick="selectAll();"></th>
+                        <th>ID</th>
+                        <th>姓名</th>
+                        <th>性别</th>
+                        <th>年龄</th>
+                        <th>电话</th>
+                        <th>是否删除</th>
+                        <th>创建时间</th>
+                        <th>更新时间</th>
+                        <th>操作</th>
                     </tr>
-                {/foreach}
-            </table>
+                    {foreach $adminStudents as $adminStudent}
+                        <tr>
+                            <td><input class="boxs" type="checkbox" name="check[]" value="{$adminStudent->id}"></td>
+                            <td>{$adminStudent->id}</td>
+                            <td>{$adminStudent->name}</td>
+                            <td>{$adminStudent->sex}</td>
+                            <td>{$adminStudent->age}</td>
+                            <td>{$adminStudent->phone}</td>
+                            <td>{$adminStudent->del}</td>
+                            <td>{$adminStudent->create_time}</td>
+                            <td>{$adminStudent->update_time}</td>
+                            <td>
+                                <a href="#" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑</a>
+                                <a href="{:url('AdminStudents/delete?id='.$adminStudent->id)}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</a>
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$adminStudents->render()}
+            </form>
         </div>
     </div>
 </div>
