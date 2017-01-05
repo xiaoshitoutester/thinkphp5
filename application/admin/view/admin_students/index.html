@@ -1,5 +1,8 @@
 {extend name="basic" /}
 {block name="title"}学生信息系统{/block}
+{block name="js"}
+    <script src="__PUBLIC__/static/admin_students/index.js"></script>
+{/block}
 {block name="content"}
 <div class="container">
     <div class="row">
@@ -18,7 +21,7 @@
                 </tr>
                 {foreach $adminStudents as $adminStudent}
                     <tr>
-                        <td><input type="checkbox" name="check[]" value="{$adminStudent->id}"></td>
+                        <td><input class="boxs" type="checkbox" name="check[]" value="{$adminStudent->id}"></td>
                         <td>{$adminStudent->id}</td>
                         <td>{$adminStudent->name}</td>
                         <td>{$adminStudent->sex}</td>
