@@ -13,7 +13,7 @@ class AdminStudents extends Model
 {
     // 获取AdminStudents表中的所有数据
     public static function getAllData(){
-        return AdminStudents::where([])->order('id asc')->paginate(5);
+        return AdminStudents::where([])->order('id asc')->paginate(10);
     }
 
     // 删除记录

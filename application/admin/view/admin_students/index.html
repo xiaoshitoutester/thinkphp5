@@ -7,16 +7,19 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            <div class="text-right">
+                <a href="{:url('Admin/admin')}" class="btn btn-success btn-sm">返回主页</a>
+            </div>
             <form action="{:url('AdminStudents/delete')}" method="post" onsubmit="return delLists();" id="myform">
                 <hr>
                 <div class="text-right">
-                    <a href="#" class="btn btn-success">新增</a>
+                    <a href="{:url('AdminStudents/add')}" class="btn btn-success">新增</a>
                     <input type="submit" value="全部删除" class="btn btn-danger">
                 </div>
                 <hr>
                 <table class="table table-bordered table-hover">
                     <tr class="info">
-                        <th><input type="checkbox" id="selectAll" onclick="selectAll();"></th>
+                        <th><input type="checkbox" id="selectAll" onclick="return selectAllCheckbox();"></th>
                         <th>ID</th>
                         <th>姓名</th>
                         <th>性别</th>

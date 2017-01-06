@@ -1,0 +1,19 @@
+{extend name="basic" /}
+{block name="title"}新增{/block}
+{block name="css"}
+    <link href="__PUBLIC__/static/layui/css/layui.css" rel="stylesheet">
+    <script src="__PUBLIC__/static/layui/layui.js"></script>
+{/block}
+{block name="content"}
+123123
+<script>
+
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form'], function(){
+        var layer = layui.layer
+                ,form = layui.form();
+
+        layer.msg('Hello World');
+    });
+</script>
+{/block}

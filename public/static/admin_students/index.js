@@ -1,5 +1,5 @@
 /*选中所有的记录*/
-function selectAll() {
+function selectAllCheckbox() {
     var clidId = document.getElementById('selectAll');
     var clos = document.getElementsByClassName('boxs');
     if (clidId.checked){
@@ -29,5 +29,9 @@ function delLists() {
         return false;
     }
     // 提交
-    myform.submit;
+    if (confirm("确定全部删除？")){
+        myform.submit;
+    }else{
+        return false;
+    }
 }
