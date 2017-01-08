@@ -1,0 +1,46 @@
+{extend name='basic' /}
+{block name='title'}测试页面{/block}
+{block name='css'}
+    <link href="__PUBLIC__/static/layui/css/layui.css" rel="stylesheet">
+    <script src="__PUBLIC__/static/layui/layui.js"></script>
+{/block}
+{block name='content'}
+    <button class="layui-btn" onclick="clickMe();">点我</button>
+    <div class="myForm">
+        <form class="layui-form" role="form" action="#">
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <input class="layui-input" name="sex">
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">爱好</label>
+                <select class="layui-form-selected">
+                    <option>喝茶</option>
+                    <option>Moving</option>
+                    <option>Coding</option>
+                </select>
+            </div>
+        </form>
+    </div>
+<script>
+    layui.use('form',function () {
+        var myform = layui.form();
+    })
+    
+    function clickMe() {
+        layui.use(['layer','form'],function () {
+            var form1 = layui.form(),layer = layui.layer;
+            var index1 = layer.open({
+                type:1,
+                title:'新增学生',
+                content:'<div class="myForm"><form class="layui-form"role="form"action="#"><div class="layui-form-item"><label class="layui-form-label">性别</label><input class="layui-input"name="sex"></div><div class="layui-form-item"><label class="layui-form-label">爱好</label><select class="layui-form-selected"><option>喝茶</option><option>Moving</option><option>Coding</option></select></div></form></div>',
+                btn:['确定','取消']
+            });
+        })
+    }
+</script>
+{/block}
+
+
+
+

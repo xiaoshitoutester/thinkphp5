@@ -5,15 +5,84 @@
     <script src="__PUBLIC__/static/layui/layui.js"></script>
 {/block}
 {block name="content"}
-123123
+<div class="addStudent-form">
+    <form action="{:url('AdminStudents/save')}" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-offset-1">姓名：</label>
+            <div class="input-group col-md-offset-1">
+                <input type="text" name="name" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-offset-1">性别：</label>
+            <div class="input-group col-md-offset-1">
+                <div class="radio-inline">
+                    <input type="radio" name="sex" value="0" checked>男
+                </div>
+                <div class="radio-inline">
+                    <input type="radio" name="sex" value="1">女
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-offset-1">年龄：</label>
+            <div class="input-group col-md-offset-1">
+                <input name="age" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-offset-1">电话：</label>
+            <div class="input-group col-md-offset-1">
+                <input name="phone" type="text" class="form-control">
+            </div>
+        </div>
+    </form>
+</div>
+
+<button class="layui-btn layui-btn-radius layui-btn-big layui-btn-danger" name="btn" onclick="return clickme();">打我呀</button>
 <script>
+    function clickme() {
+        layui.use(['layer','form'],function () {
+            var layer = layui.layer,
+                form = layui.form();
+            var index = layer.open({
+                type: 1,
+                title: ['新增','text-align:center;'], //不显示标题栏
+                btnAlign:'c',
+                closeBtn: 0,// 右上角关闭按钮
+                anim:4,
+                area: ['500px','400px'],
+                shade: 0.5,
+                scrollbar:false, //不然出现滚动条
+                id: 'LAY_layuipro' ,//设定一个id，防止重复弹出
+                btn: ['提交', '取消'],
+                moveType: 1 ,//拖拽模式，0或者1
+                content:'<div class="addStudent-form"><form action="{:url("AdminStudents/save")}"method="post"class="form-horizontal"><div class="form-group"><label class="control-label col-md-offset-1">姓名：</label><div class="input-group col-md-offset-1"><input type="text"name="name"class="form-control"></div></div><div class="form-group"><label class="control-label col-md-offset-1">性别：</label><div class="input-group col-md-offset-1"><div class="radio-inline"><input type="radio"name="sex"value="0"checked>男</div><div class="radio-inline"><input type="radio"name="sex"value="1">女</div></div></div><div class="form-group"><label class="control-label col-md-offset-1">年龄：</label><div class="input-group col-md-offset-1"><input name="age"type="text"class="form-control"></div></div><div class="form-group"><label class="control-label col-md-offset-1">电话：</label><div class="input-group col-md-offset-1"><input name="phone"type="text"class="form-control"></div></div></form></div>',
+                yes:function () {
+                    $.post('{:url("AdminStudents/save")}',function (data) {
+                        layer.close(index);
+                        resMessage(data['message']);
+                    })
+                }
+            });
+        });
+    }
 
-    //一般直接写在一个js文件中
-    layui.use(['layer', 'form'], function(){
-        var layer = layui.layer
-                ,form = layui.form();
+    // 返回信息弹框
+    function resMessage(msg) {
+        layui.use('layer',function () {
+            var tips = layer.open({
+                title:false,
+                type:0,
+                btnAlign:'c',
+                content:msg,
+                closeBtn:0,
+                success:function () {
+                    layer.close(tips);
+                }
+            });
+        })
+    }
 
-        layer.msg('Hello World');
-    });
 </script>
 {/block}

@@ -47,5 +47,23 @@ class AdminStudents extends Index
         return $this->fetch();
     }
 
+    // 保存新增和修改数据
+    public function save(){
+        if (true){
+            $res['status'] = 500;
+            $res['message'] = '新增失败';
+        }else{
+            $res['status'] = 200;
+            $res['message'] = '新增成功';
+        }
+
+        return json($res);
+    }
+
+    // 测试方法
+    public function test(){
+        return $this->fetch();
+    }
+
 
 }
