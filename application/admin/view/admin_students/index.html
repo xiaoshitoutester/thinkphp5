@@ -13,7 +13,7 @@
             <form action="{:url('AdminStudents/delete')}" method="post" onsubmit="return delLists();" id="myform">
                 <hr>
                 <div class="text-right">
-                    <a href="{:url('AdminStudents/add')}" class="btn btn-success">新增</a>
+                    <button class="layui-btn layui-btn-radius" type="button" onclick="return addStudents();">新增</button>
                     <input type="submit" value="全部删除" class="btn btn-danger">
                 </div>
                 <hr>
@@ -53,4 +53,79 @@
         </div>
     </div>
 </div>
+<!--弹框程序--添加信息-->
+<div id="addForm" style="display: none">
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="add_name">姓名：</label>
+            <div class="layui-input-inline">
+                <input id="add_name" name="name" type="text" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别：</label>
+            <div class="layui-input-inline">
+                <input type="radio" name="add_sex" value="0"  title="男" checked>
+                <input type="radio" name="add_sex" value="1"  title="女">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="add_age">年龄：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="age" class="layui-input" id="add_age">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="add_phone">电话：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="phone" class="layui-input" id="add_phone">
+            </div>
+        </div>
+    </form>
+</div>
+<!--script脚本-->
+<script language="JavaScript">
+    // 初始化form组件
+    layui.use('form',function () {
+        var form = layui.form();
+    })
+
+    // 新增弹框
+    function addStudents() {
+        layui.use('layer',function () {
+           var layer=layui.layer;
+           var index = layer.open({
+               title:['新增','text-align:center'],
+                type:1,//页面
+                btn:['保存','取消'],
+                btnAlign:'c',
+                content:$('#addForm'),
+                yes:function () {
+                    $.post('{:url("AdminStudents/save")}',{
+                        'name':$('#add_name').val(),
+                        'sex':$('input[name="add_sex"]:checked').val(),
+                        'age':$('#add_age').val(),
+                        'phone':$('#add_phone').val()
+                    },function (data) {
+                        layer.close(index);//关闭弹框
+                        showMessage(data['message']);//返回新增结果
+                    });
+                }
+            });
+        });
+    }
+
+    // 消息弹框
+    function showMessage(msg) {
+        layui.use('layer',function () {
+            var layer=layui.layer;
+            layer.open({
+               type:0,
+                content:msg,
+                time:1000
+            });
+        })
+    }
+
+</script>
 {/block}

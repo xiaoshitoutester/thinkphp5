@@ -24,4 +24,12 @@ class AdminStudents extends Model
         }
         return false;
     }
+
+    // 新增或者更新数据
+    public static function saveData($adminStudent){
+        if ($adminStudent->save()){
+            return true;
+        }
+        return false;
+    }
 }

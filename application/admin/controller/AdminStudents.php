@@ -8,6 +8,7 @@
 
 namespace app\admin\controller;
 use app\common\model\AdminStudents as AdminStudentsModel;
+use think\Request;
 
 class AdminStudents extends Index
 {
@@ -49,14 +50,22 @@ class AdminStudents extends Index
 
     // 保存新增和修改数据
     public function save(){
-        if (true){
-            $res['status'] = 500;
-            $res['message'] = '新增失败';
-        }else{
+        $data = input();
+        // 获取adminstudent对象
+        $adminStudent = new AdminStudentsModel();
+        // 赋值
+        $adminStudent->name = $data['name'];
+        $adminStudent->sex = $data['sex'];
+        $adminStudent->age = $data['age'];
+        $adminStudent->phone = $data['phone'];
+        //保存
+        if (AdminStudentsModel::saveData($adminStudent)){
             $res['status'] = 200;
             $res['message'] = '新增成功';
+        }else{
+            $res['status'] = 500;
+            $res['message'] = '新增失败';
         }
-
         return json($res);
     }
 
