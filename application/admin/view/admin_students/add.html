@@ -57,7 +57,7 @@
                 id: 'LAY_layuipro' ,//设定一个id，防止重复弹出
                 btn: ['提交', '取消'],
                 moveType: 1 ,//拖拽模式，0或者1
-                content:'<div class="addStudent-form"><form action="{:url("AdminStudents/save")}"method="post"class="form-horizontal"><div class="form-group"><label class="control-label col-md-offset-1">姓名：</label><div class="input-group col-md-offset-1"><input type="text"name="name"class="form-control"></div></div><div class="form-group"><label class="control-label col-md-offset-1">性别：</label><div class="input-group col-md-offset-1"><div class="radio-inline"><input type="radio"name="sex"value="0"checked>男</div><div class="radio-inline"><input type="radio"name="sex"value="1">女</div></div></div><div class="form-group"><label class="control-label col-md-offset-1">年龄：</label><div class="input-group col-md-offset-1"><input name="age"type="text"class="form-control"></div></div><div class="form-group"><label class="control-label col-md-offset-1">电话：</label><div class="input-group col-md-offset-1"><input name="phone"type="text"class="form-control"></div></div></form></div>',
+                content:$('.addStudent-form').html(),
                 yes:function () {
                     $.post('{:url("AdminStudents/save")}',function (data) {
                         layer.close(index);

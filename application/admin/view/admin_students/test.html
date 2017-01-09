@@ -6,19 +6,24 @@
 {/block}
 {block name='content'}
     <button class="layui-btn" onclick="clickMe();">点我</button>
-    <div class="myForm">
-        <form class="layui-form" role="form" action="#">
+    <div class="myForm col-md-offset-1" style="display: none;">
+        <form class="layui-form layui-form-pane" role="form" action="#">
             <div class="layui-form-item">
                 <label class="layui-form-label">性别</label>
-                <input class="layui-input" name="sex">
+                <div class="layui-input-inline">
+                    <input class="layui-input" name="sex">
+                </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">爱好</label>
-                <select class="layui-form-selected">
-                    <option>喝茶</option>
-                    <option>Moving</option>
-                    <option>Coding</option>
-                </select>
+                <div class="layui-input-inline">
+                    <select class="layui-form-selected">
+                        <option>喝茶</option>
+                        <option>Moving</option>
+                        <option>Coding</option>
+                    </select>
+                </div>
+
             </div>
         </form>
     </div>
@@ -29,11 +34,13 @@
     
     function clickMe() {
         layui.use(['layer','form'],function () {
-            var form1 = layui.form(),layer = layui.layer;
+            var layer = layui.layer;
             var index1 = layer.open({
                 type:1,
                 title:'新增学生',
-                content:'<div class="myForm"><form class="layui-form"role="form"action="#"><div class="layui-form-item"><label class="layui-form-label">性别</label><input class="layui-input"name="sex"></div><div class="layui-form-item"><label class="layui-form-label">爱好</label><select class="layui-form-selected"><option>喝茶</option><option>Moving</option><option>Coding</option></select></div></form></div>',
+                skin: 'ayui-layer-molv',
+                area:['350px','300px'],
+                content:$(".myForm"),
                 btn:['确定','取消']
             });
         })
