@@ -31,18 +31,19 @@
                         <th>操作</th>
                     </tr>
                     {foreach $adminStudents as $adminStudent}
-                        <tr>
+                        <tr id="{$adminStudent->id}">
                             <td><input class="boxs" type="checkbox" name="check[]" value="{$adminStudent->id}"></td>
                             <td>{$adminStudent->id}</td>
-                            <td>{$adminStudent->name}</td>
-                            <td>{$adminStudent->sex}</td>
-                            <td>{$adminStudent->age}</td>
-                            <td>{$adminStudent->phone}</td>
+                            <td class="name">{$adminStudent->name}</td>
+                            <td class="sex">{$adminStudent->sex}</td>
+                            <td class="age">{$adminStudent->age}</td>
+                            <td class="phone">{$adminStudent->phone}</td>
                             <td>{$adminStudent->del}</td>
                             <td>{$adminStudent->create_time}</td>
                             <td>{$adminStudent->update_time}</td>
                             <td>
-                                <a href="#" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑</a>
+                                <!--<a href="#" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑</a>-->
+                                <button onclick="clikBtn(this.value)" class="layui-btn layui-btn-radius layui-btn-primary" type="button" value="{$adminStudent->id}">编辑</button>
                                 <a href="{:url('AdminStudents/delete?id='.$adminStudent->id)}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</a>
                             </td>
                         </tr>
@@ -83,6 +84,36 @@
         </div>
         <div class="layui-form-item">
             <input type="reset" id="add_rest" hidden="hidden">
+        </div>
+    </form>
+</div>
+<!--修改弹框-->
+<div id="editForm">
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="edit_name">姓名：</label>
+            <div class="layui-input-inline">
+                <input id="edit_name" name="name" type="text" class="layui-input" value="">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别：</label>
+            <div class="layui-input-inline">
+                <input type="radio" name="edit_sex" value="0"  title="男" checked>
+                <input type="radio" name="edit_sex" value="1"  title="女">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="edit_age">年龄：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="age" class="layui-input" id="edit_age">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="edit_phone">电话：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="phone" class="layui-input" id="edit_phone">
+            </div>
         </div>
     </form>
 </div>
@@ -131,6 +162,15 @@
                 time:1000
             });
         })
+    }
+    
+    // 判断是哪一个编辑按钮被点击了
+    function clikBtn(id) {
+        var studentid = id;
+        var stuObj =  $('#' + studentid);
+        alert(stuObj.find('td.name').html());
+        $('#edit_name').value = '12323';
+
     }
 
 </script>
