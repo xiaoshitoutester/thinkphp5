@@ -81,6 +81,9 @@
                 <input type="text" name="phone" class="layui-input" id="add_phone">
             </div>
         </div>
+        <div class="layui-form-item">
+            <input type="reset" id="add_rest" hidden="hidden">
+        </div>
     </form>
 </div>
 <!--script脚本-->
@@ -92,6 +95,9 @@
 
     // 新增弹框
     function addStudents() {
+        // 重置表单
+        $('#add_rest').trigger('click');
+        // 弹框
         layui.use('layer',function () {
            var layer=layui.layer;
            var index = layer.open({
