@@ -52,19 +52,27 @@ class AdminStudents extends Index
     public function save(){
         $data = input();
         // 获取adminstudent对象
-        $adminStudent = new AdminStudentsModel();
+        if ($data['type'] == 'add'){
+            // 新增
+            $adminStudent = new AdminStudentsModel();
+        }elseif ($data['type'] == 'edit'){
+            // 修改
+            $editId = $data['id'];
+            $adminStudent = AdminStudentsModel::get($editId);
+        }
+
         // 赋值
         $adminStudent->name = $data['name'];
         $adminStudent->sex = $data['sex'];
         $adminStudent->age = $data['age'];
         $adminStudent->phone = $data['phone'];
-        //保存
+        //保存到数据库
         if (AdminStudentsModel::saveData($adminStudent)){
             $res['status'] = 200;
-            $res['message'] = '新增成功';
+            $res['message'] = '保存成功';
         }else{
             $res['status'] = 500;
-            $res['message'] = '新增失败';
+            $res['message'] = '保存失败';
         }
         return json($res);
     }

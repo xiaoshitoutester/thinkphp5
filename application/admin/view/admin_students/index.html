@@ -88,7 +88,7 @@
     </form>
 </div>
 <!--修改弹框-->
-<div id="editForm">
+<div id="editForm" style="display: none;">
     <form class="layui-form layui-form-pane">
         <div class="layui-form-item">
             <label class="layui-form-label" for="edit_name">姓名：</label>
@@ -98,7 +98,7 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">性别：</label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline sexClass">
                 <input type="radio" name="edit_sex" value="0"  title="男" checked>
                 <input type="radio" name="edit_sex" value="1"  title="女">
             </div>
@@ -142,7 +142,8 @@
                         'name':$('#add_name').val(),
                         'sex':$('input[name="add_sex"]:checked').val(),
                         'age':$('#add_age').val(),
-                        'phone':$('#add_phone').val()
+                        'phone':$('#add_phone').val(),
+                        'type':'add'
                     },function (data) {
                         layer.close(index);//关闭弹框
                         showMessage(data['message']);//返回新增结果
@@ -166,11 +167,42 @@
     
     // 判断是哪一个编辑按钮被点击了
     function clikBtn(id) {
+        // 将修改的数据赋值到表单中
         var studentid = id;
         var stuObj =  $('#' + studentid);
-        alert(stuObj.find('td.name').html());
-        $('#edit_name').value = '12323';
+        $("#edit_name").val(stuObj.find('td.name').html());
+        $("#edit_age").val(stuObj.find('td.age').html());
+        $("#edit_phone").val(stuObj.find('td.phone').html());
+        if (stuObj.find('td.sex').html() === '女'){
+            $('div.sexClass input[value="1"]').attr('checked',true);
+        }
 
+        // 修改弹框
+        layui.use(['form','layer'],function () {
+           var layer = layui.layer,form = layui.form();
+            // 更新form表单渲染
+            form.render();
+            var index = layer.open({
+               type:1,
+                title:['修改','text-align:center'],
+                content:$('#editForm'),
+                btn:['修改','取消'],
+                btnAlign:'c',
+                yes:function () {
+                    $.post("{:url('AdminStudents/save')}",{
+                        type:'edit',
+                        id:studentid,
+                        name:$('#edit_name').val(),
+                        phone:$('#edit_phone').val(),
+                        age:$('#edit_age').val(),
+                        sex:$('input[name="edit_sex"]:checked').val()
+                    },function (data) {
+                        layer.close(index);
+                        showMessage(data['message']);
+                    })
+                }
+            });
+        });
     }
 
 </script>
