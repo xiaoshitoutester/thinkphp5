@@ -8,6 +8,7 @@
 
 namespace app\admin\controller;
 use app\common\model\User as UserModel;
+use phpDocumentor\Reflection\Types\Array_;
 use think\Request;
 
 class User extends Index
@@ -17,8 +18,9 @@ class User extends Index
      */
     // 用户首页
     public function index(){
-        $userModels = UserModel::all();
-        $this->assign('users',$userModels);
+        $users = User::read();
+//        return dump($users);
+        $this->assign('users',$users);
         return $this->fetch();
     }
 
@@ -46,6 +48,26 @@ class User extends Index
         $res['code'] = 500;
         $res['message'] = '新增失败';
         return $res;
+    }
+
+    // 读取用户信息
+    protected static function read(){
+        $users = UserModel::where([])->select();
+        $datas = array();
+        foreach ($users as $user){
+            $userModel = UserModel::get($user['id'],'usermsg');
+            if (!empty($userModel)){
+                $tmp = array();
+                // 给tmp数组赋值
+                $tmp['username'] = $userModel->username;
+                $tmp['name'] = $userModel->usermsg->name;
+                $tmp['address'] = $userModel->usermsg->address;
+                $tmp['phone'] = $userModel->usermsg->phone;
+                // 将需要展示的数据存入到datas数组中
+                array_push($datas,$tmp);
+            }
+        }
+        return $datas;
     }
 
 }
