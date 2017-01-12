@@ -1,0 +1,110 @@
+{extend name="basic" /}
+{block name="title"}用户管理{/block}
+{block name="content"}
+<div class="container">
+    <div class="text-right">
+        <a href="{:url('Admin/admin')}" class="layui-btn layui-btn-small layui-btn-radius">返回主页</a>
+    </div>
+    <hr>
+    <div class="text-right">
+        <button type="button" class="layui-btn layui-btn-radius layui-btn-normal" onclick="return addUserBox();">新增用户</button>
+    </div>
+    <hr>
+    <table class="layui-table">
+        <tr>
+            <th>用户名</th>
+            <th>姓名</th>
+            <th>电话</th>
+            <th>地址</th>
+        </tr>
+        {foreach $users as $user}
+            <tr>
+                <td>{$user->username}</td>
+                <td>{$user->usermsg()->getData('name')}</td>
+                <td>{$user->usermsg->phone}</td>
+                <td>{$user->usermsg->address}</td>
+            </tr>
+        {/foreach}
+
+    </table>
+</div>
+
+<!--新增弹框-->
+<div id="addUserForm" style="display: none">
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" class="layui-input" id="add_username">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" class="layui-input" id="add_password">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" class="layui-input" id="add_name">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-inline">
+                <input type="text" name="phone" class="layui-input" id="add_phone">
+            </div>
+        </div>
+        <div class="layui-form-item" style="display: none">
+            <input type="reset" id="add_reset">
+        </div>
+    </form>
+</div>
+<script>
+    layui.use('form',function () {
+        layui.form();
+    });
+
+    // 消息提示框
+    function showMessage(msg) {
+        layui.use('layer',function () {
+            var layer=layui.layer;
+            layer.open({
+                type:0,
+                content:msg,
+                time:1000
+            });
+        })
+    }
+
+    // 新增弹框
+    function addUserBox() {
+        // 充值表单
+        $('#add_reset').trigger('click');
+        // 弹框
+        layui.use('layer',function () {
+           var layer=layui.layer;
+            var index=layer.open({
+               type:1,
+                title:['新增用户','text-align:center'],
+                btn:['保存','取消'],
+                btnAlign:'c',
+                content:$('#addUserForm'),
+                yes:function () {
+                    $.post('{:url("User/add")}',{
+                        username:$('#add_username').val(),
+                        password:$('#add_password').val(),
+                        name:$('#add_name').val(),
+                        phone:$('#add_phone').val()
+                    },function (data) {
+                        layer.close(index);
+                        showMessage(data['message']);
+                    })
+                }
+
+            });
+        });
+    }
+</script>
+{/block}

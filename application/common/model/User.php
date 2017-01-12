@@ -57,4 +57,9 @@ class User extends Model
 
     }
 
+    // user表与usermsg进行一对一关联
+    public function usermsg(){
+        return $this->hasOne('Usermsg');
+    }
+
 }
