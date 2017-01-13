@@ -19,13 +19,13 @@
             <th>操作</th>
         </tr>
         {foreach $users as $user}
-            <tr>
-                <td>{$user['username']}</td>
-                <td>{$user['name']}</td>
-                <td>{$user['phone']}</td>
-                <td>{$user['address']}</td>
+            <tr userid="{$user['id']}">
+                <td name="username">{$user['username']}</td>
+                <td name="name">{$user['name']}</td>
+                <td name="phone">{$user['phone']}</td>
+                <td name="address">{$user['address']}</td>
                 <td>
-                    <button type="button" class="layui-btn layui-btn-radius layui-btn-normal layui-btn-mini">修改</button>
+                    <button type="button" class="layui-btn layui-btn-radius layui-btn-normal layui-btn-mini" value="{$user['id']}" onclick="editUserBox(this.value)">修改</button>
                     <button type="button" class="layui-btn layui-btn-radius layui-btn-danger layui-btn-mini">删除</button>
                 </td>
             </tr>
@@ -65,6 +65,36 @@
         </div>
     </form>
 </div>
+
+<!--修改弹框-->
+<div id="editUserForm" style="display: none">
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" class="layui-input" id="edit_username">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" class="layui-input" id="edit_name">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">地址</label>
+            <div class="layui-input-inline">
+                <input type="text" name="address" class="layui-input" id="edit_address">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-inline">
+                <input type="text" name="phone" class="layui-input" id="edit_phone">
+            </div>
+        </div>
+    </form>
+</div>
 <script>
     layui.use('form',function () {
         layui.form();
@@ -84,7 +114,7 @@
 
     // 新增弹框
     function addUserBox() {
-        // 充值表单
+        // 重置表单
         $('#add_reset').trigger('click');
         // 弹框
         layui.use('layer',function () {
@@ -110,5 +140,30 @@
             });
         });
     }
+
+    // 修改弹框
+    function editUserBox(id) {
+        // 给修改表单赋值
+        var userTr = $('tr[userid="'+id+'"]');
+        $('#edit_name').val(userTr.find('td[name="name"]').html());
+        $('#edit_username').val(userTr.find('td[name="username"]').html());
+        $('#edit_address').val(userTr.find('td[name="address"]').html());
+        $('#edit_phone').val(userTr.find('td[name="phone"]').html());
+        // 弹框
+        layui.use('layer',function () {
+            var layer = layui.layer;
+            var index = layer.open({
+               type:1,
+                title:['修改','text-align:center'],
+                btn:['保存','取消'],
+                btnAlign:'c',
+                content:$('#editUserForm'),
+                yes:function () {
+                    $.post('{:url("User/")}');
+                }
+            });
+        })
+    }
+
 </script>
 {/block}

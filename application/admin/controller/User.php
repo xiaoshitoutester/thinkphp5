@@ -8,7 +8,6 @@
 
 namespace app\admin\controller;
 use app\common\model\User as UserModel;
-use phpDocumentor\Reflection\Types\Array_;
 use think\Request;
 
 class User extends Index
@@ -59,6 +58,7 @@ class User extends Index
             if (!empty($userModel)){
                 $tmp = array();
                 // 给tmp数组赋值
+                $tmp['id'] = $userModel->id;
                 $tmp['username'] = $userModel->username;
                 $tmp['name'] = $userModel->usermsg->name;
                 $tmp['address'] = $userModel->usermsg->address;
