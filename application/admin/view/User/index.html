@@ -26,7 +26,7 @@
                 <td name="address">{$user['address']}</td>
                 <td>
                     <button type="button" class="layui-btn layui-btn-radius layui-btn-normal layui-btn-mini" value="{$user['id']}" onclick="editUserBox(this.value)">修改</button>
-                    <button type="button" class="layui-btn layui-btn-radius layui-btn-danger layui-btn-mini">删除</button>
+                    <button type="button" class="layui-btn layui-btn-radius layui-btn-danger layui-btn-mini" value="{$user['id']}" onclick="deleteUserBox(this.value)">删除</button>
                 </td>
             </tr>
         {/foreach}
@@ -72,7 +72,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">用户名</label>
             <div class="layui-input-inline">
-                <input type="text" name="username" class="layui-input" id="edit_username">
+                <input type="text" name="username" class="layui-input" id="edit_username" disabled>
             </div>
         </div>
         <div class="layui-form-item">
@@ -130,7 +130,8 @@
                         username:$('#add_username').val(),
                         password:$('#add_password').val(),
                         name:$('#add_name').val(),
-                        phone:$('#add_phone').val()
+                        phone:$('#add_phone').val(),
+                        type:'add'
                     },function (data) {
                         layer.close(index);
                         showMessage(data['message']);
@@ -159,7 +160,39 @@
                 btnAlign:'c',
                 content:$('#editUserForm'),
                 yes:function () {
-                    $.post('{:url("User/")}');
+                    $.post('{:url("User/edit")}',{
+                        type:'edit',
+                        id:id,
+                        name:$('#edit_name').val(),
+                        address:$('#edit_address').val(),
+                        phone:$('#edit_phone').val()
+                    },function (data) {
+                        layer.close(index);
+                        showMessage(data['message']);
+                    });
+                }
+            });
+        })
+    }
+
+    // 删除弹框
+    function deleteUserBox(id) {
+        layui.use('layer',function () {
+            var layer = layui.layer;
+            var index = layer.open({
+                title:false,
+                closeBtn:0,
+                btn:['确定','取消'],
+                btnAlign:'c',
+                content:'确定要删除吗？',
+                yes:function () {
+                    $.post('{:url("User/delete")}',{
+                        type:'delete',
+                        id:id
+                    },function (data) {
+                        layer.close(index);
+                        showMessage(data['message']);
+                    })
                 }
             });
         })

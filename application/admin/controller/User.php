@@ -25,12 +25,14 @@ class User extends Index
 
     // 新增用户
     public function add(){
-        if (Request::instance()->isAjax()){
+        if (Request::instance()->isAjax() && input('type') == 'add'){
             $datas = input();
-            // 向user表中添加数据
+            // 实例对象
             $userModel = new UserModel();
+            // 获取用户名和密码
             $userModel->username = $datas['username'];
             $userModel->password = md5($datas['password']);
+            // 向user表中添加数据
             if ($userModel->save()){
                 // 想关联表：usermsg保存姓名和电话号码
                 $data['name'] = $datas['name'];
@@ -68,6 +70,51 @@ class User extends Index
             }
         }
         return $datas;
+    }
+
+    // 修改
+    public function edit(){
+        if (Request::instance()->isAjax() && input('type') == 'edit'){
+            $datas = input();
+            // 实例对象
+            $userModel = UserModel::find($datas['id']);
+            // // 想关联表：usermsg保存姓名,电话号码,地址
+            $userModel->usermsg->name = $datas['name'];
+            $userModel->usermsg->phone = $datas['phone'];
+            $userModel->usermsg->address = $datas['address'];
+            if ($userModel->usermsg->save()){
+                $res['code'] = 200;
+                $res['message'] = '修改成功';
+                return $res;
+            }
+        }
+        // 修改失败
+        $res['code'] = 500;
+        $res['message'] = '修改失败';
+        return $res;
+    }
+
+    // 删除  关联删除
+    public function delete(){
+        if (Request::instance()->isAjax() && input('type') == 'delete'){
+            $userModel = UserModel::get(input('id'));
+            if (!empty($userModel)){
+                // 删除user表的数据
+                if ($userModel->delete()){
+                    // 删除关联表usermsg表的数据
+                    if ($userModel->usermsg->delete()){
+                        $res['code'] = 200;
+                        $res['message'] = '删除成功';
+                        return json($res);
+                    }
+                }
+            }
+        }
+
+        // 删除失败
+        $res['code'] = 500;
+        $res['message'] = '删除失败';
+        return json($res);
     }
 
 }
