@@ -1,0 +1,36 @@
+<div id="g-table">
+    <div id="top_table">
+        <div class="layui-form-item">
+            <div style="display: inline">
+                <span style="font-weight: bold">记录数:</span>
+                <a style="color: green">{$numbers}</a>
+            </div>
+            <div style="display: inline">
+                <input type="button" class="layui-btn layui-btn-normal layui-btn-primary layui-btn-radius" onclick="return addUserBox();" value="新增用户">
+            </div>
+        </div>
+    </div>
+
+
+    <table class="layui-table">
+        <tr>
+            <th>用户名</th>
+            <th>姓名</th>
+            <th>电话</th>
+            <th>地址</th>
+            <th>操作</th>
+        </tr>
+        {foreach $users as $user}
+        <tr userid="{$user['id']}">
+            <td name="username">{$user['username']}</td>
+            <td name="name">{$user['name']}</td>
+            <td name="phone">{$user['phone']}</td>
+            <td name="address">{$user['address']}</td>
+            <td>
+                <button type="button" class="layui-btn layui-btn-radius layui-btn-normal layui-btn-mini" value="{$user['id']}" onclick="editUserBox(this.value)">修改</button>
+                <button type="button" class="layui-btn layui-btn-radius layui-btn-danger layui-btn-mini" value="{$user['id']}" onclick="deleteUserBox(this.value)">删除</button>
+            </td>
+        </tr>
+        {/foreach}
+    </table>
+</div>

@@ -6,19 +6,52 @@
         <a href="{:url('Admin/admin')}" class="layui-btn layui-btn-small layui-btn-radius">返回主页</a>
     </div>
     <hr>
-    <div class="text-right">
-        <button type="button" class="layui-btn layui-btn-radius layui-btn-normal" onclick="return addUserBox();">新增用户</button>
+    <div id="selectUserForm">
+        <form class="layui-form" onsubmit="return false;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="select_username" class="layui-input">
+                </div>
+                <label class="layui-form-label">姓名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="select_name" class="layui-input">
+                </div>
+                <label class="layui-form-label">电话</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="select_phone" class="layui-input">
+                </div>
+                <div class="layui-input-inline">
+                    <input type="submit" value="查询" class="layui-btn layui-btn-radius" onclick="return selectUser();">
+                    <input type="reset" value="重置" class="layui-btn layui-btn-radius layui-btn-primary">
+                </div>
+            </div>
+        </form>
     </div>
     <hr>
-    <table class="layui-table">
-        <tr>
-            <th>用户名</th>
-            <th>姓名</th>
-            <th>电话</th>
-            <th>地址</th>
-            <th>操作</th>
-        </tr>
-        {foreach $users as $user}
+    <div id="g-table">
+        <div id="top_table">
+            <div class="layui-form-item">
+                <div style="display: inline">
+                    <span style="font-weight: bold">记录数:</span>
+                    <a style="color: green">{$numbers}</a>
+                </div>
+                <div style="display: inline">
+                    <input type="button" class="layui-btn layui-btn-normal layui-btn-primary layui-btn-radius" onclick="return addUserBox();" value="新增用户">
+                </div>
+            </div>
+        </div>
+
+
+        <table class="layui-table">
+            <tr>
+                <th>用户名</th>
+                <th>姓名</th>
+                <th>电话</th>
+                <th>地址</th>
+                <th>操作</th>
+            </tr>
+            {foreach $users as $user}
             <tr userid="{$user['id']}">
                 <td name="username">{$user['username']}</td>
                 <td name="name">{$user['name']}</td>
@@ -29,8 +62,10 @@
                     <button type="button" class="layui-btn layui-btn-radius layui-btn-danger layui-btn-mini" value="{$user['id']}" onclick="deleteUserBox(this.value)">删除</button>
                 </td>
             </tr>
-        {/foreach}
-    </table>
+            {/foreach}
+        </table>
+    </div>
+
 </div>
 
 <!--新增弹框-->
@@ -197,6 +232,19 @@
             });
         })
     }
+
+    // 提交查询条件
+    function selectUser() {
+        var forms = $('#selectUserForm form');
+        $.post('{:url("User/search")}',{
+            'select_username':forms.find('input[name="select_username"]').val(),
+            'select_name':forms.find('input[name="select_name"]').val(),
+            'select_phone':forms.find('input[name="select_phone"]').val()
+        },function (data) {
+            $('#g-table').html(data);
+        });
+    }
+
 
 </script>
 {/block}

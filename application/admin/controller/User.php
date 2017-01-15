@@ -17,7 +17,10 @@ class User extends Index
      */
     // 用户首页
     public function index(){
-        $users = User::read();
+        // 初始化查询条件
+        $conditon = array();
+        $users = User::read($conditon);
+        $this->assign('numbers',count($users));
 //        return dump($users);
         $this->assign('users',$users);
         return $this->fetch();
@@ -52,8 +55,8 @@ class User extends Index
     }
 
     // 读取用户信息
-    protected static function read(){
-        $users = UserModel::where([])->select();
+    protected static function read($condition,$usermsgConditon=array()){
+        $users = UserModel::where($condition)->select();
         $datas = array();
         foreach ($users as $user){
             $userModel = UserModel::get($user['id'],'usermsg');
@@ -65,8 +68,26 @@ class User extends Index
                 $tmp['name'] = $userModel->usermsg->name;
                 $tmp['address'] = $userModel->usermsg->address;
                 $tmp['phone'] = $userModel->usermsg->phone;
-                // 将需要展示的数据存入到datas数组中
-                array_push($datas,$tmp);
+                // 过滤usermsg表
+                if (!empty($usermsgConditon)){
+                    $addFlag = true;
+                    foreach ($usermsgConditon as $name=>$value){
+                        // 过滤条件,任何一个条件不满足时，返回false，退出循环
+                        if ($userModel->usermsg->$name !== $value) {
+                            $addFlag = false;
+                            break;
+                        }
+                    }
+                    if ($addFlag){
+                        // 将需要展示的数据存入到datas数组中
+                        array_push($datas, $tmp);
+                    }
+
+                }else{
+                        // 将需要展示的数据存入到datas数组中
+                        array_push($datas,$tmp);
+                    }
+
             }
         }
         return $datas;
@@ -115,6 +136,29 @@ class User extends Index
         $res['code'] = 500;
         $res['message'] = '删除失败';
         return json($res);
+    }
+
+    // 专门处理条件查询
+    public function search(){
+        if (Request::instance()->isAjax()){
+            // 如果是表单提交的post请求，处理查询
+            $conditon = array();
+            $usermsgConditon = array();
+            $datas = input();
+            if (!empty($datas['select_username'])){
+                $conditon['username'] = $datas['select_username'];
+            }
+            if (!empty($datas['select_name'])){
+                $usermsgConditon['name'] = $datas['select_name'];
+            }
+            if (!empty($datas['select_phone'])){
+                $usermsgConditon['phone'] = $datas['select_phone'];
+            }
+            $users = User::read($conditon, $usermsgConditon);
+            $this->assign('numbers',count($users));
+            $this->assign('users',$users);
+            return $this->fetch();
+        }
     }
 
 }
