@@ -6,12 +6,30 @@
     <link rel="stylesheet" href="__PUBLIC__/static/bootstrap/css/bootstrap.min.css">
     <script src="__PUBLIC__/static/js/jquery-3.1.1.min.js"></script>
     <!--加载layui框架-->
-    <link href="__PUBLIC__/static/layui/css/layui.css" rel="stylesheet">
+    <link href="__PUBLIC__/static/layui/css/layui.css" rel="stylesheet" media="all">
     <script src="__PUBLIC__/static/layui/layui.js"></script>
     {block name="css"}{/block}
     {block name="js"}{/block}
 </head>
 <body>
+{block name="nav"}
+    <ul class="layui-nav" lay-filter="">
+        <li class="layui-nav-item"><a href="{:url('User/index')}">用户管理</a></li>
+        <li class="layui-nav-item"><a href="{:url('AdminStudents/index')}">学生信息</a></li>
+        <li class="layui-nav-item"><a href="{:url('Chatbot/index')}">聊天机器人</a></li>
+        <li class="layui-nav-item"><a href="{:url('News/index')}">实时新闻</a></li>
+        <li class="layui-nav-item"><a href="{:url('Message/index')}">留言板</a></li>
+        <li class="layui-nav-item">
+            <a href="javascript: ;">系统设置</a>
+            <dl class="layui-nav-child">
+                <dd><a href="{:url('Login/logout')}">退出登录</a></dd>
+                <dd><a href="{:url('Admin/changepwd')}">修改密码</a></dd>
+                <dd><a href="{:url('Upload/index')}">文件上传</a></dd>
+                <dd><a href="{:url('Admin/admin')}">后台中心</a></dd>
+            </dl>
+        </li>
+    </ul>
+{/block}
 {block name="content"}{/block}
 </body>
 </html>
