@@ -161,4 +161,56 @@ class User extends Index
         }
     }
 
+    // excel表导出
+    public function exportExcel(){
+        //创建一个读Excel模板的对象
+        $objPHPExcel= new \PHPExcel();
+        //获取当前活动的表
+        $objActSheet=$objPHPExcel->getActiveSheet();
+        $objActSheet->setTitle('用户信息');//设置excel的标题
+        $objActSheet->setCellValue('A1','用户信息导出');
+        $objActSheet->setCellValue('F2','导出时间:'.date('Y-m-d H:i:s'));
+
+        //现在开始输出列头了
+        $objActSheet->setCellValue('A3','用户名');
+        $objActSheet->setCellValue('B3','姓名');
+        $objActSheet->setCellValue('C3','电话');
+        $objActSheet->setCellValue('D3','地址');
+
+        //现在就开始填充数据了 （从数据库中）
+        $baseRow = 4; //数据从N-1行开始往下输出 这里是避免头信息被覆盖
+        //开始获取数据
+        $conditon = array();
+        $usermsgConditon = array();
+        $datas = input();
+        if (!empty($datas['select_username'])){
+            $conditon['username'] = $datas['select_username'];
+        }
+        if (!empty($datas['select_name'])){
+            $usermsgConditon['name'] = $datas['select_name'];
+        }
+        if (!empty($datas['select_phone'])){
+            $usermsgConditon['phone'] = $datas['select_phone'];
+        }
+        $list = self::read($conditon, $usermsgConditon);
+        //结束获取数据
+        foreach ( $list as $r => $dataRow ) {
+            $row = $baseRow + $r;
+            //将数据填充到相对应的位置，对应上面输出的列头
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . $row, $dataRow ['username'] );
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . $row, $dataRow ['name'] );
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . $row, $dataRow ['phone'] );
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . $row, $dataRow ['address'] );
+        }
+
+        //导出
+        $filename ='用户信息';//excel文件名称
+        $filename = iconv('utf-8',"gb2312",$filename);//转换名称编码，防止乱码
+        header ( 'Content-Type: application/vnd.ms-excel;charset=utf-8' );
+        header ( 'Content-Disposition: attachment;filename="' . $filename . '.xls"' ); //”‘.$filename.’.xls”
+        header ( 'Cache-Control: max-age=0');
+
+        $objWriter = \PHPExcel_IOFactory::createWriter ( $objPHPExcel, 'Excel5' ); //在内存中准备一个excel2003文件
+        $objWriter->save ('php://output');
+    }
 }

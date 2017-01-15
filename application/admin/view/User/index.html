@@ -38,6 +38,7 @@
                 </div>
                 <div style="display: inline">
                     <input type="button" class="layui-btn layui-btn-normal layui-btn-primary layui-btn-radius" onclick="return addUserBox();" value="新增用户">
+                    <input type="button" class="layui-btn layui-btn-normal layui-btn-primary layui-btn-radius" onclick="return exportUser();" value="Excel导出">
                 </div>
             </div>
         </div>
@@ -243,6 +244,34 @@
         },function (data) {
             $('#g-table').html(data);
         });
+    }
+
+    // excel表导出
+    function exportUser() {
+        var forms = $('#selectUserForm form');
+
+        var form=$("<form>");
+        form.attr("style","display:none");
+        form.attr("method","post");
+        form.attr("action",'{:url("User/exportExcel")}');
+        var input_username=$("<input>");
+        input_username.attr("type","hidden");
+        input_username.attr("name","select_username");
+        input_username.attr("value",forms.find('input[name="select_username"]').val());
+        var input_name=$("<input>");
+        input_name.attr("type","hidden");
+        input_name.attr("name","select_name");
+        input_name.attr("value",forms.find('input[name="select_name"]').val());
+        var input_phone=$("<input>");
+        input_phone.attr("type","hidden");
+        input_phone.attr("name","select_phone");
+        input_phone.attr("value",forms.find('input[name="select_phone"]').val());
+        $("body").append(form);//将表单放置在web中
+        form.append(input_username);
+        form.append(input_name);
+        form.append(input_phone);
+        form.submit();//表单提交
+
     }
 
 
