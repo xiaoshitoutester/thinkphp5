@@ -168,8 +168,14 @@ class User extends Index
         //获取当前活动的表
         $objActSheet=$objPHPExcel->getActiveSheet();
         $objActSheet->setTitle('用户信息');//设置excel的标题
+        $objActSheet->mergeCells('A1:D1');// 合并单元格
         $objActSheet->setCellValue('A1','用户信息导出');
-        $objActSheet->setCellValue('F2','导出时间:'.date('Y-m-d H:i:s'));
+        // 居中
+        $objActSheet->getStyle('A1')->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $objActSheet->mergeCells('A2:D2');
+        $objActSheet->setCellValue('A2',date('Y-m-d H:i:s'));
+        // 右对齐
+        $objActSheet->getStyle('A2')->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
         //现在开始输出列头了
         $objActSheet->setCellValue('A3','用户名');
