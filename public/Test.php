@@ -7,4 +7,4 @@
  * Time: 15:05
  */
 
-echo dirname($_SERVER['SCRIPT_NAME']);
+echo phpinfo();

@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.nav {
+    background-color: #000000;
+    height: 40px;
+    margin: 0 auto;
+}
+ul{
+    list-style: none;
+}
+.nav ul li{
+    float: left;
+    line-height: 40px;
+    text-align: center;
+    position: relative;
+}
+a{
+    text-decoration: none;
+    color: white;
+    display: block;
+    width: 90px;
+    height: 40px;
+}
+a:hover{
+    background-color: gold;
+    color: red;
+}
+.nav ul li ul li{
+    float: none;
+    background-color: #EEEEEE;
+}
+.nav ul li ul{
+    position: absolute;
+    top:40px;
+    left: 0px;
+    display: none;
+    width: 90px;
+
+}
+.nav ul li ul li a:link,.nav ul li ul li a:visited{
+    background-color: #EEEEEE;
+}
+.nav ul li ul li a:hover{
+    background: #009933;
+}
+.nav ul li:hover ul {
+    display: block;
+}

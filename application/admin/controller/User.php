@@ -216,7 +216,7 @@ class User extends Index
         header ( 'Content-Disposition: attachment;filename="' . $filename . '.xls"' ); //”‘.$filename.’.xls”
         header ( 'Cache-Control: max-age=0');
 
-        $objWriter = \PHPExcel_IOFactory::createWriter ( $objPHPExcel, 'Excel5' ); //在内存中准备一个excel2003文件
+        $objWriter = \PHPExcel_IOFactory::createWriter ( $objPHPExcel, 'Excel2007' ); //在内存中准备一个excel2003文件
         $objWriter->save ('php://output');
     }
 }
