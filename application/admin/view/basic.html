@@ -17,14 +17,15 @@
 {block name="nav"}
     <div class="nav">
         <ul>
-            <li><a href="{:url('User/index')}">用户管理</a></li>
-            <li><a href="{:url('AdminStudents/index')}">学生信息</a></li>
-            <li><a href="{:url('Chatbot/index')}">聊天机器人</a></li>
-            <li><a href="{:url('News/index')}">实时新闻</a></li>
-            <li><a href="{:url('Message/index')}">留言板</a></li>
-            <li>
+            <li class="first"><a href="{:url('User/index')}"><img src="__PUBLIC__/static/images/logo.jpg"></a></li>
+            <li class="menu"><a href="{:url('User/index')}">用户管理</a></li>
+            <li class="menu"><a href="{:url('AdminStudents/index')}">学生信息</a></li>
+            <li class="menu"><a href="{:url('Chatbot/index')}">聊天机器人</a></li>
+            <li class="menu"><a href="{:url('News/index')}">实时新闻</a></li>
+            <li class="menu"><a href="{:url('Message/index')}">留言板</a></li>
+            <li class="menu">
                 <a href="javascript: ;">系统设置</a>
-                <ul>
+                <ul class="menu-child">
                     <li><a href="{:url('Login/logout')}">退出登录</a></li>
                     <li><a href="{:url('Admin/changepwd')}">修改密码</a></li>
                     <li><a href="{:url('Upload/index')}">文件上传</a></li>
@@ -35,5 +36,16 @@
     </div>
 {/block}
 {block name="content"}{/block}
+<script>
+    $(function(){
+        $(".menu").mouseover(function(){
+            $(this).children("ul").show();
+        });
+
+        $(".menu").mouseout(function(){
+            $(this).children("ul").hide();
+        });
+    });
+</script>
 </body>
 </html>
