@@ -26,11 +26,18 @@
             <li class="menu">
                 <a href="javascript: ;">系统设置</a>
                 <ul class="menu-child">
-                    <li><a href="{:url('Login/logout')}">退出登录</a></li>
                     <li><a href="{:url('Admin/changepwd')}">修改密码</a></li>
                     <li><a href="{:url('Upload/index')}">文件上传</a></li>
                     <li><a href="{:url('Admin/admin')}">后台中心</a></li>
                 </ul>
+            </li>
+            <li class="last">
+                <div id="login_name">
+                    <span><i class="glyphicon glyphicon-user"></i>&nbsp;{$Think.session.user->username}</span>
+                </div>
+                <div id="logout">
+                    <a href="{:url('Login/logout')}"><i class="glyphicon glyphicon-off"></i>&nbsp;退出</a>
+                </div>
             </li>
         </ul>
     </div>

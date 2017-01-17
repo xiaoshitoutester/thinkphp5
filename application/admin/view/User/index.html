@@ -1,7 +1,7 @@
 {extend name="basic" /}
 {block name="title"}用户管理{/block}
 {block name="content"}
-<div class="container">
+<div class="g-content" style="margin: 0 50px">
     <hr>
     <div id="selectUserForm">
         <form class="layui-form" onsubmit="return false;">
@@ -56,8 +56,8 @@
                 <td name="phone">{$user['phone']}</td>
                 <td name="address">{$user['address']}</td>
                 <td>
-                    <button type="button" class="layui-btn layui-btn-radius layui-btn-normal layui-btn-mini" value="{$user['id']}" onclick="editUserBox(this.value)">修改</button>
-                    <button type="button" class="layui-btn layui-btn-radius layui-btn-danger layui-btn-mini" value="{$user['id']}" onclick="deleteUserBox(this.value)">删除</button>
+                    <button type="button" class="layui-btn layui-btn-radius layui-btn-normal layui-btn-small" value="{$user['id']}" onclick="editUserBox(this.value)">修改</button>
+                    <button type="button" class="layui-btn layui-btn-radius layui-btn-danger layui-btn-small" value="{$user['id']}" onclick="deleteUserBox(this.value)">删除</button>
                 </td>
             </tr>
             {/foreach}
