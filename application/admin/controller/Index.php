@@ -17,7 +17,7 @@ class Index extends Controller
         // 调用父类
         parent::__construct();
         if (!User::isLogin()){
-            $this->error('非法访问，请登录',url('Login/login'));
+            $this->error('非法访问，请登录',url('admin/Login/login'));
         }
     }
 
